@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recyclerView);
-        FirebaseFirestore db1 = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         s1 = getResources().getStringArray(R.array.locations);
         s2 = getResources().getStringArray(R.array.contacts);
