@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">MVP</string>
+    <string-array name="locations">
+        <item>Olin Rice</item>
+        <item>Campus Center</item>
+        <item>Leonard Center</item>
+    </string-array>
+
+    <string-array name="contacts">
+        <item>651-696-6027</item>
+        <item>651-696-6569</item>
+        <item>651-696-6457</item>
+    </string-array>
+</resources>
