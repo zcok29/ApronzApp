@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         FirebaseFirestore b = FirebaseFirestore.getInstance();
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         s1 = getResources().getStringArray(R.array.locations);
         s2 = getResources().getStringArray(R.array.contacts);
 
