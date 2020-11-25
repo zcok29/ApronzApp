@@ -71,23 +71,4 @@ public class MainActivity extends AppCompatActivity {
           });
     }
 
-
-
-
-//    db.collection("locations")
-//      .get()
-//          .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//        @Override
-//        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//            if (task.isSuccessful()) {
-//                for (QueryDocumentSnapshot document : task.getResult()) {
-//                    Log.d("CHECK", document.getId() + " => " + document.getData().values());
-//                }
-//            } else {
-//                Log.w("ERROR", "Error getting documents.", task.getException());
-//            }
-//        }
-//    });
-
-
 }
