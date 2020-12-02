@@ -12,6 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.MyViewHolder> {
 
     String data1[], data2[];
@@ -39,15 +44,18 @@ public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.myText1.setText(data1[position]);
-        holder.myText2.setText(data2[position]);
+        String location = data1[position];
+        String contact = data2[position];
+        holder.myText1.setText(location);
+        holder.myText2.setText(contact);
         holder.myImage.setImageResource(images[position]);
         holder.myButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+
                 Intent startIntent = new Intent(context.getApplicationContext(), SecondActivity.class);
-                startIntent.putExtra("SOMETHING", "HELLO WORLD!");
+                startIntent.putExtra("SOMETHING", location);
                 context.startActivity(startIntent);
             }
         });

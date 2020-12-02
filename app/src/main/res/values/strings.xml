@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MVP</string>
+    <string name="app_name">MacExplore</string>
     <string-array name="locations">
         <item>Olin Rice</item>
         <item>Campus Center</item>

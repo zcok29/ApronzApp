@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recyclerView);
-        FirebaseFirestore b = FirebaseFirestore.getInstance();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -63,10 +62,6 @@ public class MainActivity extends AppCompatActivity {
 //        user.put("email", "alexjones@gmail.com");
 //
 //        db.collection("users").add(user);
-
-
-
-
 
 
 
