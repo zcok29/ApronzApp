@@ -34,9 +34,6 @@ public class SecondActivity extends AppCompatActivity {
 //    TextView inputTextView = (TextView) findViewById(R.id.input_text);
 
 
-
-
-
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
