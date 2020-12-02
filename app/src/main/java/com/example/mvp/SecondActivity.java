@@ -21,7 +21,9 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        View inputText = findViewById(R.id.input_text);
+        TextView inputText = (TextView) findViewById(R.id.input_text);
+
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -38,7 +40,6 @@ public class SecondActivity extends AppCompatActivity {
             TextView tv = (TextView) findViewById(R.id.myText2);
             String text = getIntent().getExtras().getString("SOMETHING");
             tv.setText(text);
-            System.out.println(text);
         }
     }
 }
