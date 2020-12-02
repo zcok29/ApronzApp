@@ -31,7 +31,7 @@ public class SecondActivity extends AppCompatActivity {
         });
 
 
-//        TextView inputTextView = (TextView) findViewById(R.id.input_text);
+//    TextView inputTextView = (TextView) findViewById(R.id.input_text);
 
 
 
