@@ -49,7 +49,6 @@ public class SecondActivity extends AppCompatActivity {
             TextView tv = (TextView) findViewById(R.id.myText2);
             String location = getIntent().getExtras().getString("SOMETHING");
             tv.setText(location);
-            System.out.println(location);
         }
     }
 }
