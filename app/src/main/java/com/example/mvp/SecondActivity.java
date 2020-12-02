@@ -40,6 +40,7 @@ public class SecondActivity extends AppCompatActivity {
             TextView tv = (TextView) findViewById(R.id.myText2);
             String text = getIntent().getExtras().getString("SOMETHING");
             tv.setText(text);
+            System.out.println(text);
         }
     }
 }
