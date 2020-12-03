@@ -9,11 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-<<<<<<< Updated upstream
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-=======
->>>>>>> Stashed changes
+
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(myAdaptor);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-<<<<<<< Updated upstream
+
         // Create a new user with a first and last name
 //         Map<String, Object> user = new HashMap<>();
 //         user.put("first", "Oliver");
@@ -97,13 +96,12 @@ public class MainActivity extends AppCompatActivity {
               }
           });
     }
-=======
-        //Create a new user with a first and last name
-        Map<String, Object> userTest = new HashMap<>();
-        userTest.put("first", "Someome different 2.0");
-        userTest.put("last", "Wallace");
-        userTest.put("born", 1999);
->>>>>>> Stashed changes
+//
+//        //Create a new user with a first and last name
+//        Map<String, Object> userTest = new HashMap<>();
+//        userTest.put("first", "Someome different 2.0");
+//        userTest.put("last", "Wallace");
+//        userTest.put("born", 1999);
 
 
 
