@@ -1,6 +1,9 @@
-package com.example.mvp;
+/**
+* This class serves as an object for storing location data that is retrieved
+ * from the database.
+ */
 
-import java.lang.reflect.Array;
+package com.example.mvp;
 
 public class Location {
 
