@@ -1,3 +1,7 @@
+/*
+ * Main Activity
+ */
+
 package com.example.mvp;
 
 import android.os.Bundle;
@@ -8,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-
 
     RecyclerView recyclerView;
 
@@ -56,6 +58,37 @@ public class MainActivity extends AppCompatActivity {
         // Retrieves location data from the database
 //        getLocations(db);
 
+        // Retrieves location data of a requested location from the database
+//        getOneLocation(db, "name", "Olin Rice");
+
+    }
+
+
+    /**
+     * This function gets the information of one location by passing in the
+     * key and value to make a conditional query
+     *
+     * Example:   getOneLocation(db, "name", "Leonard Center")
+     * 
+     */
+    protected void getOneLocation(FirebaseFirestore db, String key, String value){
+        db.collection("locations").whereEqualTo(key, value).get()
+          .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+              @Override
+              public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                  if (task.isSuccessful()) {
+                      for (QueryDocumentSnapshot doc : task.getResult()) {
+                          // Log.d("CHECK", document.getId() + " => " + document.getData().values());
+                          // Log.d("CHECK STRING", document.getData().get("contact").toString());
+                          Location location = new Location(doc.getData().get("name").toString(), doc.getData().get("contact").toString(), doc.getData().get("address").toString());
+                          Log.d("SINGLE LOCATION OBJECT", location.name + ", " + location.contact + ", " + location.address);
+                          // locationData.add(location);
+                      }
+                  } else {
+                      Log.w("ERROR", "Error getting documents.", task.getException());
+                  }
+              }
+          });
     }
 
 
@@ -68,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         locationMap.put("address", address);
         db.collection("locations").add(locationMap);
     }
+
 
     /*
     * This function currently gets and logs the current locations in the database
@@ -83,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                           // Log.d("CHECK", document.getId() + " => " + document.getData().values());
                           // Log.d("CHECK STRING", document.getData().get("contact").toString());
                           Location location = new Location(doc.getData().get("name").toString(), doc.getData().get("contact").toString(), doc.getData().get("address").toString());
-                          Log.d("LOCATION OBJECTTEST", location.name + ", " + location.contact + ", " + location.address);
+                          Log.d("LOCATION OBJECT", location.name + ", " + location.contact + ", " + location.address);
                           // locationData.add(location);
                       }
                   } else {
@@ -92,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
               }
           });
     }
+
 
     // This is a sample function of addUser function (example to build from)
 //    protected void addUser(FirebaseFirestore db, String first, String last, int born, String email){
