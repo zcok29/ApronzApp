@@ -29,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
     String s1[], s2[];
     int images[] = {R.drawable.aolinrice, R.drawable.cc, R.drawable.lc};
     Button button;
-    List<Location> locationData;
+    //  List<Location> locationData;
+    Map<String, Object> locationMap = new HashMap<>();
 
 
     @Override
@@ -49,36 +50,31 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(myAdaptor);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // Add a new location to the database
+//        addLocation(db, "DeWitt Wallace Library", "651-696-6377", "1600 Grand Ave, St Paul, MN 55105");
 
-        // Create a new user with a first and last name
-//         Map<String, Object> user = new HashMap<>();
-//         user.put("first", "Oliver");
-//         user.put("last", "Smith");
-//         user.put("born", 1989);
-//         user.put("email", "osmith@macalester.edu");
-//
-//        db.collection("users").add(user);
-//
-//        user.put("first", "Alexander");
-//        user.put("last", "Jones");
-//        user.put("born", 1966);
-//        user.put("email", "alexjones@gmail.com");
-//
-//        db.collection("users").add(user);
+        // Retrieves location data from the database
+//        getLocations(db);
+
+    }
 
 
+    /**
+    * This function adds locations to the database
+    */
+    protected void addLocation(FirebaseFirestore db, String name, String contact, String address){
+        locationMap.put("name", name);
+        locationMap.put("contact", contact);
+        locationMap.put("address", address);
+        db.collection("locations").add(locationMap);
+    }
 
-        // Add a new location to Firestore
-//        Map<String, Object> location = new HashMap<>();
-//        location.put("name", "DeWitt Wallace Library");
-//        location.put("contact", "651-696-6377");
-//        location.put("address", "1600 Grand Ave, St Paul, MN 55105");
-//
-//        db.collection("locations").add(location);
-
-        // Retrieves location data from Firestore
-        db.collection("locations")
-          .get()
+    /*
+    * This function currently gets and logs the current locations in the database
+    *  TODO: return location information to be used for location list?
+     */
+    protected void getLocations(FirebaseFirestore db){
+        db.collection("locations").get()
           .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
               @Override
               public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -87,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                           // Log.d("CHECK", document.getId() + " => " + document.getData().values());
                           // Log.d("CHECK STRING", document.getData().get("contact").toString());
                           Location location = new Location(doc.getData().get("name").toString(), doc.getData().get("contact").toString(), doc.getData().get("address").toString());
-                          Log.d("LOCATION OBJECT", location.name + ", " + location.contact + ", " + location.address);
+                          Log.d("LOCATION OBJECTTEST", location.name + ", " + location.contact + ", " + location.address);
                           // locationData.add(location);
                       }
                   } else {
@@ -96,22 +92,9 @@ public class MainActivity extends AppCompatActivity {
               }
           });
     }
-//
-//        //Create a new user with a first and last name
-//        Map<String, Object> userTest = new HashMap<>();
-//        userTest.put("first", "Someome different 2.0");
-//        userTest.put("last", "Wallace");
-//        userTest.put("born", 1999);
 
-
-
-
-
-//    Map<String, Object> user = new HashMap<>();
-//
-//    // addUser function beginning
+    // This is a sample function of addUser function (example to build from)
 //    protected void addUser(FirebaseFirestore db, String first, String last, int born, String email){
-//        // Create a new user with a first and last name
 //        user.put("first", first);
 //        user.put("last", last);
 //        user.put("born", born);
