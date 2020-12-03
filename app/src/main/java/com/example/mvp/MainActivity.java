@@ -31,7 +31,14 @@ public class MainActivity extends AppCompatActivity {
     String s1[], s2[];
     int images[] = {R.drawable.aolinrice, R.drawable.cc, R.drawable.lc};
     Button button;
+
+    // Used in getLocations function
     //  List<Location> locationData;
+
+    // Used in getComments function
+    // List<Comment> commentData;
+
+    // Used in addLocation function
     Map<String, Object> locationMap = new HashMap<>();
 
 
@@ -61,15 +68,46 @@ public class MainActivity extends AppCompatActivity {
         // Retrieves location data of a requested location from the database
 //        getOneLocation(db, "name", "Olin Rice");
 
+        // Retrieves comment data of a specific location
+//        getComments(db, "J5ri7Dlp55HcZ4V0CQvo");
+
     }
 
 
     /**
-     * This function gets the information of one location by passing in the
-     * key and value to make a conditional query
+     *  This function gets the comment data of a specific location from the database
+     *  TODO: figure out how to get the correct document ID of the location that we want
+     */
+    protected void getComments(FirebaseFirestore db, String documentID){
+        db.collection("locations").document(documentID).collection("comments").get()
+          .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+              @Override
+              public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                  if (task.isSuccessful()) {
+                      for (QueryDocumentSnapshot doc : task.getResult()) {
+                          // Creates a new comment object with the data pulled from the location with the corresponding document ID
+                          Comment comment = new Comment(doc.getData().get("content").toString(), doc.getData().get("timestamp").toString());
+                          // Logs the comment object for testing purposes
+                          Log.d("SINGLE COMMENT OBJECT", comment.content + ", " + comment.timestamp);
+
+                          // TODO: return comment data as a list of comments?
+                          // commentData.add(comment);
+                      }
+                  } else {
+                      Log.w("ERROR", "Error getting documents.", task.getException());
+                  }
+              }
+          });
+    }
+
+
+    /**
+     * This function gets the information of one location by passing in the key and value to make a
+     * conditional query. This function shows how you can use .whereEqualTo() to perform simple
+     * queries.
      *
-     * Example:   getOneLocation(db, "name", "Leonard Center")
-     * 
+     * Function Example:   getOneLocation(db, "name", "Leonard Center")
+     *
      */
     protected void getOneLocation(FirebaseFirestore db, String key, String value){
         db.collection("locations").whereEqualTo(key, value).get()
@@ -78,11 +116,10 @@ public class MainActivity extends AppCompatActivity {
               public void onComplete(@NonNull Task<QuerySnapshot> task) {
                   if (task.isSuccessful()) {
                       for (QueryDocumentSnapshot doc : task.getResult()) {
-                          // Log.d("CHECK", document.getId() + " => " + document.getData().values());
-                          // Log.d("CHECK STRING", document.getData().get("contact").toString());
+                          // Creates a new location object with the data pulled of the location that fits the condition
                           Location location = new Location(doc.getData().get("name").toString(), doc.getData().get("contact").toString(), doc.getData().get("address").toString());
+                          // Logs the location object for testing purposes
                           Log.d("SINGLE LOCATION OBJECT", location.name + ", " + location.contact + ", " + location.address);
-                          // locationData.add(location);
                       }
                   } else {
                       Log.w("ERROR", "Error getting documents.", task.getException());
@@ -105,7 +142,6 @@ public class MainActivity extends AppCompatActivity {
 
     /*
     * This function currently gets and logs the current locations in the database
-    *  TODO: return location information to be used for location list?
      */
     protected void getLocations(FirebaseFirestore db){
         db.collection("locations").get()
@@ -114,10 +150,16 @@ public class MainActivity extends AppCompatActivity {
               public void onComplete(@NonNull Task<QuerySnapshot> task) {
                   if (task.isSuccessful()) {
                       for (QueryDocumentSnapshot doc : task.getResult()) {
+                          // Keeping these commented logs to use as a reference
                           // Log.d("CHECK", document.getId() + " => " + document.getData().values());
                           // Log.d("CHECK STRING", document.getData().get("contact").toString());
+
+                          // Creates a new location object with the data pulled from the database
                           Location location = new Location(doc.getData().get("name").toString(), doc.getData().get("contact").toString(), doc.getData().get("address").toString());
+                          // Logs the location object for testing purposes
                           Log.d("LOCATION OBJECT", location.name + ", " + location.contact + ", " + location.address);
+
+                          // TODO: return location data as a list?
                           // locationData.add(location);
                       }
                   } else {
