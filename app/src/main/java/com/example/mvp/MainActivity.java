@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         // Retrieves location data of a requested location from the database
 //        getOneLocation(db, "name", "Olin Rice");
 
-        // Retrieves comment data of a specific location
+        // Retrieves comment data of a specific location (this doc ID is for Campus Center)
 //        getComments(db, "J5ri7Dlp55HcZ4V0CQvo");
 
     }
