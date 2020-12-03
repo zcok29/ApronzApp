@@ -23,6 +23,9 @@ import java.util.Map;
 
 public class SecondActivity extends AppCompatActivity {
 
+    // Used to add comment to database
+    Map<String, Object> commentMap = new HashMap<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,12 @@ public class SecondActivity extends AppCompatActivity {
                 Log.d("Epoch Timestamp: ", "" + epoch);
                 Log.d("Date Timestamp: ", date);
 
+                // Prepares the comment data in a hash map to be sent to the database
+                commentMap.put("content", comment);
+                commentMap.put("timestamp", epoch);
+
+                // Sends the prepared comment data to the database with doc ID "J5ri7Dlp55HcZ4V0CQvo"
+                db.collection("locations").document("J5ri7Dlp55HcZ4V0CQvo").collection("comments").add(commentMap);
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
