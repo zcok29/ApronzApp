@@ -1,5 +1,7 @@
 /**
-* This class serves as an object for storing location data that is retrieved
+ * Location Class
+ *
+ * This class serves as an object for storing location data that is retrieved
  * from the database.
  */
 

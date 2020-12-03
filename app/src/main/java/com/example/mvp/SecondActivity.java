@@ -1,3 +1,6 @@
+/*
+ * SecondActivity
+ */
 package com.example.mvp;
 
 import android.os.Bundle;
@@ -46,7 +49,7 @@ public class SecondActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Gets the text from the editText box when the fab button is pressed
                 String comment = editText.getText().toString();
-                //  Gets current Timestamp when the fab button is pressed  (for testing)
+                //  Gets current Timestamp when the fab button is pressed
                 long epoch = System.currentTimeMillis()/1000;
                 String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (epoch*1000));
 
