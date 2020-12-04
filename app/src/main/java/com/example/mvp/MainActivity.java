@@ -32,11 +32,11 @@ public class MainActivity extends AppCompatActivity {
     int images[] = {R.drawable.aolinrice, R.drawable.cc, R.drawable.lc};
     Button button;
 
-    // Used in getLocations function
-    //  List<Location> locationData;
+    // Location Data
+    Location locationData[];
 
     // Used in getComments function
-    // List<Comment> commentData;
+     Comment commentData[];
 
     // Used in addLocation function
     Map<String, Object> locationMap = new HashMap<>();
@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
 
+        // Firestore instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         s1 = getResources().getStringArray(R.array.locations);
@@ -63,10 +64,12 @@ public class MainActivity extends AppCompatActivity {
 //        addLocation(db, "DeWitt Wallace Library", "651-696-6377", "1600 Grand Ave, St Paul, MN 55105");
 
         // Retrieves location data from the database
-        getLocations(db);
+        locationData = getLocations(db);
+//        Log.d("Random Index", locationData[2].name);
+//        getLocations(db);
 
         // Retrieves location data of a requested location from the database
-        getOneLocation(db, "name", "Olin Rice");
+//        getOneLocation(db, "name", "Olin Rice");
 
         // Retrieves comment data of a specific location (this doc ID is for Campus Center)
 //        getComments(db, "J5ri7Dlp55HcZ4V0CQvo");
@@ -84,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
               @Override
               public void onComplete(@NonNull Task<QuerySnapshot> task) {
                   if (task.isSuccessful()) {
+                      // Creates an array of comments with the proper size
+//                      commentData = new Comment[task.getResult().size()];
+//                      int i = 0;
                       for (QueryDocumentSnapshot doc : task.getResult()) {
                           // Creates a new comment object with the data pulled from the location with the corresponding document ID
                           Comment comment = new Comment(doc.getData().get("content").toString(), doc.getData().get("timestamp").toString());
@@ -91,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
                           Log.d("SINGLE COMMENT OBJECT", comment.content + ", " + comment.timestamp);
 
                           // TODO: return comment data as a list of comments?
-                          // commentData.add(comment);
+//                           commentData[i] = comment;
+//                           i++;
                       }
                   } else {
                       Log.w("ERROR", "Error getting documents.", task.getException());
@@ -143,12 +150,15 @@ public class MainActivity extends AppCompatActivity {
     /*
     * This function currently gets and logs the current locations in the database
      */
-    protected void getLocations(FirebaseFirestore db){
+    protected Location[] getLocations(FirebaseFirestore db){
         db.collection("locations").get()
           .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
               @Override
               public void onComplete(@NonNull Task<QuerySnapshot> task) {
                   if (task.isSuccessful()) {
+                      // Creates an array of locations with the proper size
+                      locationData = new Location[task.getResult().size()];
+                      int i = 0;
                       for (QueryDocumentSnapshot doc : task.getResult()) {
                           // Keeping these commented logs to use as a reference
                           // Log.d("CHECK", document.getId() + " => " + document.getData().values());
@@ -160,13 +170,27 @@ public class MainActivity extends AppCompatActivity {
                           Log.d("LOCATION OBJECT", location.documentID + " - " + location.name + ", " + location.contact + ", " + location.address);
 
                           // TODO: return location data as a list?
-                          // locationData.add(location);
+                          locationData[i] = location;
+                          Log.d("OBJECT AT INDEX " + i, locationData[i].name);
+                           i++;
                       }
                   } else {
                       Log.w("ERROR", "Error getting documents.", task.getException());
                   }
+
+                  // Logs for testing
+                  for (int i = 0; i < locationData.length; i++){
+                      Log.d("1OBJECT AT INDEX " + i, locationData[i].name);
+                  }
+                  Log.d("ARRAY LENGTH", locationData.length + "");
+                  Log.d("ARRAY LENGTH", task.getResult().size() + "");
               }
           });
+
+
+        // TODO: PROBLEM - the function is returning a null array even though it is successfully populated above ^
+//        Log.d("ARRAY LENGTH", locationData.length + "");  // FAILS (array is null)
+        return locationData;
     }
 
 
