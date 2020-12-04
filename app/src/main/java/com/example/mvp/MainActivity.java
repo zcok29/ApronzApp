@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 //        addLocation(db, "DeWitt Wallace Library", "651-696-6377", "1600 Grand Ave, St Paul, MN 55105");
 
         // Retrieves location data from the database
-//        getLocations(db);
+        getLocations(db);
 
         // Retrieves location data of a requested location from the database
 //        getOneLocation(db, "name", "Olin Rice");
@@ -117,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
                   if (task.isSuccessful()) {
                       for (QueryDocumentSnapshot doc : task.getResult()) {
                           // Creates a new location object with the data pulled of the location that fits the condition
-                          Location location = new Location(doc.getData().get("name").toString(), doc.getData().get("contact").toString(), doc.getData().get("address").toString());
+                          Location location = new Location(doc.getData().get("name").toString(), doc.getData().get("contact").toString(), doc.getData().get("address").toString(), "");
                           // Logs the location object for testing purposes
-                          Log.d("SINGLE LOCATION OBJECT", location.name + ", " + location.contact + ", " + location.address);
+                          Log.d("SINGLE LOCATION OBJECT", location.documentID + " - " + location.name + ", " + location.contact + ", " + location.address);
                       }
                   } else {
                       Log.w("ERROR", "Error getting documents.", task.getException());
@@ -155,9 +155,9 @@ public class MainActivity extends AppCompatActivity {
                           // Log.d("CHECK STRING", document.getData().get("contact").toString());
 
                           // Creates a new location object with the data pulled from the database
-                          Location location = new Location(doc.getData().get("name").toString(), doc.getData().get("contact").toString(), doc.getData().get("address").toString());
+                          Location location = new Location(doc.getData().get("name").toString(), doc.getData().get("contact").toString(), doc.getData().get("address").toString(), doc.getId());
                           // Logs the location object for testing purposes
-                          Log.d("LOCATION OBJECT", location.name + ", " + location.contact + ", " + location.address);
+                          Log.d("LOCATION OBJECT", location.documentID + " - " + location.name + ", " + location.contact + ", " + location.address);
 
                           // TODO: return location data as a list?
                           // locationData.add(location);
