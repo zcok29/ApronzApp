@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         getLocations(db);
 
         // Retrieves location data of a requested location from the database
-//        getOneLocation(db, "name", "Olin Rice");
+        getOneLocation(db, "name", "Olin Rice");
 
         // Retrieves comment data of a specific location (this doc ID is for Campus Center)
 //        getComments(db, "J5ri7Dlp55HcZ4V0CQvo");
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                   if (task.isSuccessful()) {
                       for (QueryDocumentSnapshot doc : task.getResult()) {
                           // Creates a new location object with the data pulled of the location that fits the condition
-                          Location location = new Location(doc.getData().get("name").toString(), doc.getData().get("contact").toString(), doc.getData().get("address").toString(), "");
+                          Location location = new Location(doc.getData().get("name").toString(), doc.getData().get("contact").toString(), doc.getData().get("address").toString(), doc.getId());
                           // Logs the location object for testing purposes
                           Log.d("SINGLE LOCATION OBJECT", location.documentID + " - " + location.name + ", " + location.contact + ", " + location.address);
                       }
