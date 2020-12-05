@@ -20,7 +20,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,11 +31,12 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
 
     String s1[], s2[];
-    int images[] = {R.drawable.aolinrice, R.drawable.cc, R.drawable.lc};
+    int images[] = {R.drawable.aolinrice, R.drawable.cc, R.drawable.lc, R.drawable.aolinrice_copy};
     Button button;
 
     // Location Data
-    public Location locationData[];
+    List<Location> locationData;
+//    public Location locationData[];
 
     // Used in addLocation function
     Map<String, Object> locationMap = new HashMap<>();
@@ -107,8 +111,8 @@ public class MainActivity extends AppCompatActivity {
               public void onComplete(@NonNull Task<QuerySnapshot> task) {
                   if (task.isSuccessful()) {
                       // Creates an array of locations with the proper size
-                      locationData = new Location[task.getResult().size()];
-                      int i = 0;
+                      locationData = new ArrayList<Location>(task.getResult().size());
+//                      int i = 0;
 
                       for (QueryDocumentSnapshot doc : task.getResult()) {
                           // Keeping these commented logs to use as a reference
@@ -121,8 +125,9 @@ public class MainActivity extends AppCompatActivity {
                           Log.d("LOCATION OBJECT", location.documentID + " - " + location.name + ", " + location.contact + ", " + location.address);
 
                           // Adds location object to locationData array
-                          locationData[i] = location;
-                          i++;
+                          locationData.add(location);
+//                          locationData[i] = location;
+//                          i++;
                       }
                   } else {
                       Log.w("ERROR", "Error getting documents.", task.getException());
@@ -134,29 +139,29 @@ public class MainActivity extends AppCompatActivity {
           });
     }
 
-        protected void buildUI(Location[] locationData){
-            String names[] = new String[locationData.length];
-            String contacts[] = new String[locationData.length];
-            String documentIDs[] = new String[locationData.length];
-
-            for (int i = 0; i < locationData.length; i++){
-                names[i] = locationData[i].name;
-                contacts[i] = locationData[i].contact;
-                documentIDs[i] = locationData[i].documentID;
-                // Logs for testing
-                Log.d("BUILDUI NAME AT INDEX " + i, names[i]);
-                Log.d("BUILDUI CONTACT AT INDEX " + i, contacts[i]);
-                Log.d("BUILDUI DOCID AT INDEX " + i, documentIDs[i]);
-            }
+        protected void buildUI(List<Location> locationData){
+//            String names[] = new String[locationData.length];
+//            String contacts[] = new String[locationData.length];
+//            String documentIDs[] = new String[locationData.length];
+//
+//            for (int i = 0; i < locationData.length; i++){
+//                names[i] = locationData[i].name;
+//                contacts[i] = locationData[i].contact;
+//                documentIDs[i] = locationData[i].documentID;
+//                // Logs for testing
+//                Log.d("BUILDUI NAME AT INDEX " + i, names[i]);
+//                Log.d("BUILDUI CONTACT AT INDEX " + i, contacts[i]);
+//                Log.d("BUILDUI DOCID AT INDEX " + i, documentIDs[i]);
+//            }
 
             recyclerView = findViewById(R.id.recyclerView);
 
-            s1 = getResources().getStringArray(R.array.locations);
-            s2 = getResources().getStringArray(R.array.contacts);
+//            s1 = getResources().getStringArray(R.array.locations);
+//            s2 = getResources().getStringArray(R.array.contacts);
 
             //initialization of class + passing all values:
 //            MyAdaptor myAdaptor = new MyAdaptor(this, s1=names, s2=contacts, images, button);
-            MyAdaptor myAdaptor = new MyAdaptor(this, s1, s2, images, button);
+            MyAdaptor myAdaptor = new MyAdaptor(this, locationData, images, button);
             recyclerView.setAdapter(myAdaptor);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }

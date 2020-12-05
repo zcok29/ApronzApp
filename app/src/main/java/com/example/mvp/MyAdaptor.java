@@ -18,21 +18,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.MyViewHolder> {
 
-    String data1[], data2[];
+//    String data1[], data2[];
     int images[];
     Context context;
     Button button;
+    List<Location> locationData;
 
-    public MyAdaptor(Context ct, String s1[], String s2[], int img[], Button btn){
+//    public MyAdaptor(Context ct, String s1[], String s2[], int img[], Button btn){
+    public MyAdaptor(Context ct, List<Location> locationData, int img[], Button btn){
         context = ct;
-        data1 = s1;
-        data2 = s2;
+//        data1 = s1;
+//        data2 = s2;
         images = img;
         button = btn;
+        this.locationData = locationData;
     }
 
     @NonNull
@@ -47,8 +51,10 @@ public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        String location = data1[position];
-        String contact = data2[position];
+//        String location = data1[position];
+//        String contact = data2[position];
+        String location = locationData.get(position).name;
+        String contact = locationData.get(position).contact;
         holder.myText1.setText(location);
         holder.myText2.setText(contact);
         holder.myImage.setImageResource(images[position]);
@@ -58,7 +64,8 @@ public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.MyViewHolder> {
             public void onClick(View v) {
 
                 Intent startIntent = new Intent(context.getApplicationContext(), SecondActivity.class);
-                startIntent.putExtra("SOMETHING", location);
+                startIntent.putExtra("LOCATION NAME", location);
+                startIntent.putExtra("DOCUMENT ID", locationData.get(position).documentID);
                 context.startActivity(startIntent);
             }
         });

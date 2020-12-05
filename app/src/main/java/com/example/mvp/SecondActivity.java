@@ -38,7 +38,7 @@ public class SecondActivity extends AppCompatActivity {
     public String location;
     public String locationID;
 
-    public Map<String, String> locationIDMap = new HashMap<>();
+//    public Map<String, String> locationIDMap = new HashMap<>();
 
 
 
@@ -50,18 +50,19 @@ public class SecondActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // TODO: Find a way to add location ID automatically instead of manually.
-        locationIDMap.put("Leonard Center", "5rVYLk5xYwA36yTgUMeC");
-        locationIDMap.put("Campus Center", "J5ri7Dlp55HcZ4V0CQvo");
-        locationIDMap.put("Olin Rice", "up6LwcknYyqVJe1gxiKi");
+//        locationIDMap.put("Leonard Center", "5rVYLk5xYwA36yTgUMeC");
+//        locationIDMap.put("Campus Center", "J5ri7Dlp55HcZ4V0CQvo");
+//        locationIDMap.put("Olin Rice", "up6LwcknYyqVJe1gxiKi");
         setContentView(R.layout.activity_second);
 
         // Get Firestore database instance
         db = FirebaseFirestore.getInstance();
-        if (getIntent().hasExtra("SOMETHING")) {
+        if (getIntent().hasExtra("LOCATION NAME")) {
             TextView tv = (TextView) findViewById(R.id.locationText);
-            location = getIntent().getExtras().getString("SOMETHING");
+            location = getIntent().getExtras().getString("LOCATION NAME");
             tv.setText(location);
-            locationID = locationIDMap.get(location);
+//            locationID = locationIDMap.get(location);
+            locationID = getIntent().getExtras().getString("DOCUMENT ID");
         }
 
         displayComment();
