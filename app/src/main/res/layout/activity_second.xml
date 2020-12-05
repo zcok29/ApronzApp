@@ -27,17 +27,27 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/locationText"
         android:backgroundTint="#00cc99"
+        android:tint="#FF5722"
         app:srcCompat="@android:drawable/ic_menu_revert" />
 
-    <TextView
-        android:id="@+id/comment_text"
-        android:paddingLeft="20dp"
+    <ScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/return_button"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/black"
-        android:textSize="30sp" />
+        android:layout_height="530dp"
+        android:layout_below="@+id/locationText"
+        android:layout_marginTop="22dp">
+
+        <TextView
+            android:id="@+id/comment_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/return_button"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="20dp"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
