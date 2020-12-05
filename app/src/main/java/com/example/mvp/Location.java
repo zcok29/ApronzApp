@@ -21,4 +21,8 @@ public class Location {
                 this.documentID = doucmentID;
         }
 
+        public String getDocumentID(){
+                return documentID;
+        }
+
 }
