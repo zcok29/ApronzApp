@@ -40,10 +40,8 @@ public class SecondActivity extends AppCompatActivity {
 
 //    public Map<String, String> locationIDMap = new HashMap<>();
 
-
-
     // Used in getComments function
-    public List<Comment> comments = new ArrayList<>();
+    List<Comment> commentData;
 
 
     @Override
@@ -123,7 +121,6 @@ public class SecondActivity extends AppCompatActivity {
 
     /**
      * This function gets the comment data of a specific location from the database
-     * TODO: figure out how to get the correct document ID of the location that we want
      */
     protected void getComments(FirebaseFirestore db, String documentID) {
 
@@ -134,20 +131,20 @@ public class SecondActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             // Creates an array of comments with the proper size
-//                      commentData = new Comment[task.getResult().size()];
-//                      int i = 0;
+                            commentData = new ArrayList<>(task.getResult().size());
+
                             for (QueryDocumentSnapshot doc : task.getResult()) {
                                 // Creates a new comment object with the data pulled from the location with the corresponding document ID
                                 Comment comment = new Comment(doc.getData().get("content").toString(), doc.getData().get("timestamp").toString());
                                 // Logs the comment object for testing purposes
                                 Log.d("SINGLE COMMENT OBJECT", comment.content + ", " + comment.timestamp);
-                                // TODO: return comment data as a list of comments?
                                 // Currently I'm using a textview object to update the comments. This is really not ideal since we need the time stamps and user name in the future.
                                 String commentStr = comment1.getText().toString();
                                 commentStr = commentStr+"\n"+ comment.content;
                                 comment1.setText(commentStr);
-//                           commentData[i] = comment;
-//                           i++;
+
+                                // Adds comment object to commentData array
+                                commentData.add(comment);
                             }
                         } else {
                             Log.w("ERROR", "Error getting documents.", task.getException());
