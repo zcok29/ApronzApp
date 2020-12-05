@@ -17,4 +17,12 @@ public class Comment {
                 this.timestamp = timestamp;
         }
 
+        public String getContent(){
+                return content;
+        }
+
+        public String getTimestamp(){
+                return timestamp;
+        }
+
 }

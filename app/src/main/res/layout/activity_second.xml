@@ -66,4 +66,11 @@
         </com.google.android.material.floatingactionbutton.FloatingActionButton>
     </LinearLayout>
 
+    <ImageButton
+        android:id="@+id/return_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        app:srcCompat="@android:drawable/ic_menu_revert" />
+
 </RelativeLayout>
