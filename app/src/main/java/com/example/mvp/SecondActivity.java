@@ -65,7 +65,8 @@ public class SecondActivity extends AppCompatActivity {
             locationID = getIntent().getExtras().getString("DOCUMENT ID");
         }
 
-        displayComment();
+//        displayComment();
+        getComments(db, locationID);
 
         editText = (EditText) findViewById(R.id.edit_text);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -113,11 +114,11 @@ public class SecondActivity extends AppCompatActivity {
     }
 
 
-    public void displayComment() {
-        getComments(db, locationID);
-        //System.out.println(comments.toString());
-        //TextView comment1 = (TextView) findViewById(R.id.comment_text);
-    }
+//    public void displayComment() {
+//        getComments(db, locationID);
+//        //System.out.println(comments.toString());
+//        //TextView comment1 = (TextView) findViewById(R.id.comment_text);
+//    }
 
 
     /**
