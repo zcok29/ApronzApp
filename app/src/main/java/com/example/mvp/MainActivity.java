@@ -32,14 +32,6 @@ public class MainActivity extends AppCompatActivity {
     int images[] = {R.drawable.aolinrice, R.drawable.cc, R.drawable.lc};
     Button button;
 
-    // Location Data
-    Location locationData[];
-
-    // Used in getComments function
-     Comment commentData[];
-
-    // Used in addLocation function
-    Map<String, Object> locationMap = new HashMap<>();
 
 
     @Override

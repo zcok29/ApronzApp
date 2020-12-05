@@ -23,10 +23,10 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.protobuf.Timestamp;
 
-import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class SecondActivity extends AppCompatActivity {
@@ -35,13 +35,17 @@ public class SecondActivity extends AppCompatActivity {
     Map<String, Object> commentMap = new HashMap<>();
     public FirebaseFirestore db;
     public EditText editText;
+    public String location;
+    public String locationID;
+
+    public Map<String, String> locationIDMap = new HashMap<>();
 
 
     // Location Data
     public Location locationData[];
 
     // Used in getComments function
-    public Comment commentData[];
+    public List<Comment> comments = new ArrayList<>();
 
     // Used in addLocation function
     Map<String, Object> locationMap = new HashMap<>();
@@ -49,32 +53,42 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // TODO: Find a way to add location ID automatically instead of manually.
+        locationIDMap.put("Leonard Center", "5rVYLk5xYwA36yTgUMeC");
+        locationIDMap.put("Campus Center", "J5ri7Dlp55HcZ4V0CQvo");
+        locationIDMap.put("Olin Rice", "up6LwcknYyqVJe1gxiKi");
         setContentView(R.layout.activity_second);
 
         // Get Firestore database instance
         db = FirebaseFirestore.getInstance();
+        if (getIntent().hasExtra("SOMETHING")) {
+            TextView tv = (TextView) findViewById(R.id.locationText);
+            location = getIntent().getExtras().getString("SOMETHING");
+            tv.setText(location);
+            locationID = locationIDMap.get(location);
+        }
+
+        displayComment();
 
         editText = (EditText) findViewById(R.id.edit_text);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                Toast.makeText(SecondActivity.this,String.valueOf(actionId),Toast.LENGTH_SHORT).show();
+                Toast.makeText(SecondActivity.this, String.valueOf(actionId), Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
 
-        getLocations(db);
+
         ImageButton returnButton = findViewById(R.id.return_button);
-        returnButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view)
-            {
-               Intent intent = new Intent(SecondActivity.this, MainActivity.class);
-               startActivity(intent);
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(SecondActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
 
-//    TextView inputTextView = (TextView) findViewById(R.id.input_text);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,37 +99,33 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
-        if (getIntent().hasExtra("SOMETHING")) {
-            TextView tv = (TextView) findViewById(R.id.myText2);
-            String location = getIntent().getExtras().getString("SOMETHING");
-            tv.setText(location);
-        }
+
     }
 
-    public void addCommentToDb(){
+    public void addCommentToDb() {
         // Gets the text from the editText box when the fab button is pressed
         String comment = editText.getText().toString();
         //  Gets current Timestamp when the fab button is pressed
-        long epoch = System.currentTimeMillis()/1000;
-        String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (epoch*1000));
+        long epoch = System.currentTimeMillis() / 1000;
+        String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date(epoch * 1000));
 
         // Logs the comment in Run/Logcat window when the fab button is pressed (for testing)
-        Log.d("Comment: ", comment);
+        // Log.d("Comment: ", comment);
         // Logs the timestamp in Run/Logcat window when the fab button is pressed  (for testing)
-        Log.d("Epoch Timestamp: ", "" + epoch);
-        Log.d("Date Timestamp: ", date);
+        // Log.d("Epoch Timestamp: ", "" + epoch);
+        //  Log.d("Date Timestamp: ", date);
 
         // Prepares the comment data in a hash map to be sent to the database
         commentMap.put("content", comment);
         commentMap.put("timestamp", epoch);
 
         // Sends the prepared comment data to the database with doc ID "J5ri7Dlp55HcZ4V0CQvo"
-        db.collection("locations").document("J5ri7Dlp55HcZ4V0CQvo").collection("comments").add(commentMap);
+        db.collection("locations").document(locationID).collection("comments").add(commentMap);
     }
 
-    public void displayComment(){
+    public void displayComment() {
         // Retrieves location data from the database
-        locationData = getLocations(db);
+        //locationData = getLocations(db);
 //        Log.d("Random Index", locationData[2].name);
 //        getLocations(db);
 
@@ -124,12 +134,19 @@ public class SecondActivity extends AppCompatActivity {
 
         // Retrieves comment data of a specific location (this doc ID is for Campus Center)
 //        getComments(db, "J5ri7Dlp55HcZ4V0CQvo");
+        getComments(db, locationID);
+        //System.out.println(comments.toString());
+        //TextView comment1 = (TextView) findViewById(R.id.comment_text);
     }
+
+
     /**
-     *  This function gets the comment data of a specific location from the database
-     *  TODO: figure out how to get the correct document ID of the location that we want
+     * This function gets the comment data of a specific location from the database
+     * TODO: figure out how to get the correct document ID of the location that we want
      */
-    protected void getComments(FirebaseFirestore db, String documentID){
+    protected void getComments(FirebaseFirestore db, String documentID) {
+
+        TextView comment1 = (TextView) findViewById(R.id.comment_text);
         db.collection("locations").document(documentID).collection("comments").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -143,8 +160,11 @@ public class SecondActivity extends AppCompatActivity {
                                 Comment comment = new Comment(doc.getData().get("content").toString(), doc.getData().get("timestamp").toString());
                                 // Logs the comment object for testing purposes
                                 Log.d("SINGLE COMMENT OBJECT", comment.content + ", " + comment.timestamp);
-
                                 // TODO: return comment data as a list of comments?
+                                // Currently I'm using a textview object to update the comments. This is really not ideal since we need the time stamps and user name in the future.
+                                String commentStr = comment1.getText().toString();
+                                commentStr = commentStr+"\n"+ comment.content;
+                                comment1.setText(commentStr);
 //                           commentData[i] = comment;
 //                           i++;
                             }
@@ -154,6 +174,8 @@ public class SecondActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
 
 
     /**
@@ -207,6 +229,7 @@ public class SecondActivity extends AppCompatActivity {
                             // Creates an array of locations with the proper size
                             locationData = new Location[task.getResult().size()];
                             int i = 0;
+
                             for (QueryDocumentSnapshot doc : task.getResult()) {
                                 // Keeping these commented logs to use as a reference
                                 // Log.d("CHECK", document.getId() + " => " + document.getData().values());
