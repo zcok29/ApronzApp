@@ -41,14 +41,10 @@ public class SecondActivity extends AppCompatActivity {
     public Map<String, String> locationIDMap = new HashMap<>();
 
 
-    // Location Data
-    public Location locationData[];
 
     // Used in getComments function
     public List<Comment> comments = new ArrayList<>();
 
-    // Used in addLocation function
-    Map<String, Object> locationMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,17 +99,9 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     public void addCommentToDb() {
-        // Gets the text from the editText box when the fab button is pressed
+        // Gets the text and timestamp when the fab button is pressed
         String comment = editText.getText().toString();
-        //  Gets current Timestamp when the fab button is pressed
         long epoch = System.currentTimeMillis() / 1000;
-        String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date(epoch * 1000));
-
-        // Logs the comment in Run/Logcat window when the fab button is pressed (for testing)
-        // Log.d("Comment: ", comment);
-        // Logs the timestamp in Run/Logcat window when the fab button is pressed  (for testing)
-        // Log.d("Epoch Timestamp: ", "" + epoch);
-        //  Log.d("Date Timestamp: ", date);
 
         // Prepares the comment data in a hash map to be sent to the database
         commentMap.put("content", comment);
@@ -123,17 +111,8 @@ public class SecondActivity extends AppCompatActivity {
         db.collection("locations").document(locationID).collection("comments").add(commentMap);
     }
 
+
     public void displayComment() {
-        // Retrieves location data from the database
-        //locationData = getLocations(db);
-//        Log.d("Random Index", locationData[2].name);
-//        getLocations(db);
-
-        // Retrieves location data of a requested location from the database
-//        getOneLocation(db, "name", "Olin Rice");
-
-        // Retrieves comment data of a specific location (this doc ID is for Campus Center)
-//        getComments(db, "J5ri7Dlp55HcZ4V0CQvo");
         getComments(db, locationID);
         //System.out.println(comments.toString());
         //TextView comment1 = (TextView) findViewById(R.id.comment_text);
@@ -178,100 +157,5 @@ public class SecondActivity extends AppCompatActivity {
 
 
 
-    /**
-     * This function gets the information of one location by passing in the key and value to make a
-     * conditional query. This function shows how you can use .whereEqualTo() to perform simple
-     * queries.
-     *
-     * Function Example:   getOneLocation(db, "name", "Leonard Center")
-     *
-     */
-    protected void getOneLocation(FirebaseFirestore db, String key, String value){
-        db.collection("locations").whereEqualTo(key, value).get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot doc : task.getResult()) {
-                                // Creates a new location object with the data pulled of the location that fits the condition
-                                Location location = new Location(doc.getData().get("name").toString(), doc.getData().get("contact").toString(), doc.getData().get("address").toString(), doc.getId());
-                                // Logs the location object for testing purposes
-                                Log.d("SINGLE LOCATION OBJECT", location.documentID + " - " + location.name + ", " + location.contact + ", " + location.address);
-                            }
-                        } else {
-                            Log.w("ERROR", "Error getting documents.", task.getException());
-                        }
-                    }
-                });
-    }
-
-
-    /**
-     * This function adds locations to the database
-     */
-    protected void addLocation(FirebaseFirestore db, String name, String contact, String address){
-        locationMap.put("name", name);
-        locationMap.put("contact", contact);
-        locationMap.put("address", address);
-        db.collection("locations").add(locationMap);
-    }
-
-
-    /*
-     * This function currently gets and logs the current locations in the database
-     */
-    protected Location[] getLocations(FirebaseFirestore db){
-        db.collection("locations").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            // Creates an array of locations with the proper size
-                            locationData = new Location[task.getResult().size()];
-                            int i = 0;
-
-                            for (QueryDocumentSnapshot doc : task.getResult()) {
-                                // Keeping these commented logs to use as a reference
-                                // Log.d("CHECK", document.getId() + " => " + document.getData().values());
-                                // Log.d("CHECK STRING", document.getData().get("contact").toString());
-
-                                // Creates a new location object with the data pulled from the database
-                                Location location = new Location(doc.getData().get("name").toString(), doc.getData().get("contact").toString(), doc.getData().get("address").toString(), doc.getId());
-                                // Logs the location object for testing purposes
-                                Log.d("LOCATION OBJECT", location.documentID + " - " + location.name + ", " + location.contact + ", " + location.address);
-
-                                // TODO: return location data as a list?
-                                locationData[i] = location;
-                                Log.d("OBJECT AT INDEX " + i, locationData[i].name);
-                                i++;
-                            }
-                        } else {
-                            Log.w("ERROR", "Error getting documents.", task.getException());
-                        }
-
-                        // Logs for testing
-                        for (int i = 0; i < locationData.length; i++){
-                            Log.d("1OBJECT AT INDEX " + i, locationData[i].name);
-                        }
-                        Log.d("ARRAY LENGTH", locationData.length + "");
-                        Log.d("ARRAY LENGTH", task.getResult().size() + "");
-                    }
-                });
-
-
-        // TODO: PROBLEM - the function is returning a null array even though it is successfully populated above ^
-//        Log.d("ARRAY LENGTH", locationData.length + "");  // FAILS (array is null)
-        return locationData;
-    }
-
-
-    // This is a sample function of addUser function (example to build from)
-//    protected void addUser(FirebaseFirestore db, String first, String last, int born, String email){
-//        user.put("first", first);
-//        user.put("last", last);
-//        user.put("born", born);
-//        user.put("email", email);
-//        db.collection("users").add(user);
-//    }
 
 }
