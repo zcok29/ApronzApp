@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Location Data
     List<Location> locationData;
-//    public Location locationData[];
 
     // Used in addLocation function
     Map<String, Object> locationMap = new HashMap<>();
@@ -112,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
                   if (task.isSuccessful()) {
                       // Creates an array of locations with the proper size
                       locationData = new ArrayList<Location>(task.getResult().size());
-//                      int i = 0;
 
                       for (QueryDocumentSnapshot doc : task.getResult()) {
                           // Keeping these commented logs to use as a reference
@@ -126,8 +124,6 @@ public class MainActivity extends AppCompatActivity {
 
                           // Adds location object to locationData array
                           locationData.add(location);
-//                          locationData[i] = location;
-//                          i++;
                       }
                   } else {
                       Log.w("ERROR", "Error getting documents.", task.getException());
