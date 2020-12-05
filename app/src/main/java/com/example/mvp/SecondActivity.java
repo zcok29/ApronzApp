@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -38,6 +39,7 @@ public class SecondActivity extends AppCompatActivity {
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                Toast.makeText(SecondActivity.this,String.valueOf(actionId),Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -69,7 +71,7 @@ public class SecondActivity extends AppCompatActivity {
                 // Sends the prepared comment data to the database with doc ID "J5ri7Dlp55HcZ4V0CQvo"
                 db.collection("locations").document("J5ri7Dlp55HcZ4V0CQvo").collection("comments").add(commentMap);
 
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Comment added", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
