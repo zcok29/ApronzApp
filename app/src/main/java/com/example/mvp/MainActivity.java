@@ -47,26 +47,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = findViewById(R.id.recyclerView);
-
         // Firestore instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        s1 = getResources().getStringArray(R.array.locations);
-        s2 = getResources().getStringArray(R.array.contacts);
-
-        //initialization of class + passing all values:
-        MyAdaptor myAdaptor = new MyAdaptor(this, s1, s2, images, button);
-        recyclerView.setAdapter(myAdaptor);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Add a new location to the database
 //        addLocation(db, "DeWitt Wallace Library", "651-696-6377", "1600 Grand Ave, St Paul, MN 55105");
 
         // Retrieves location data from the database
-        locationData = getLocations(db);
+//        locationData = getLocations(db);
 //        Log.d("Random Index", locationData[2].name);
-//        getLocations(db);
+        getLocations(db);
 
         // Retrieves location data of a requested location from the database
 //        getOneLocation(db, "name", "Olin Rice");
@@ -150,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
     /*
     * This function currently gets and logs the current locations in the database
      */
-    protected Location[] getLocations(FirebaseFirestore db){
+    protected void getLocations(FirebaseFirestore db){
         db.collection("locations").get()
           .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
               @Override
@@ -171,36 +162,42 @@ public class MainActivity extends AppCompatActivity {
 
                           // TODO: return location data as a list?
                           locationData[i] = location;
-                          Log.d("OBJECT AT INDEX " + i, locationData[i].name);
                            i++;
+                           // try adding to recycerView each loop
                       }
                   } else {
                       Log.w("ERROR", "Error getting documents.", task.getException());
                   }
 
-                  // Logs for testing
-                  for (int i = 0; i < locationData.length; i++){
-                      Log.d("1OBJECT AT INDEX " + i, locationData[i].name);
-                  }
-                  Log.d("ARRAY LENGTH", locationData.length + "");
-                  Log.d("ARRAY LENGTH", task.getResult().size() + "");
+                  // NEW FUNCTION FOR UI
+                  buildUI(locationData);
               }
           });
-
-
-        // TODO: PROBLEM - the function is returning a null array even though it is successfully populated above ^
-//        Log.d("ARRAY LENGTH", locationData.length + "");  // FAILS (array is null)
-        return locationData;
     }
 
 
-    // This is a sample function of addUser function (example to build from)
-//    protected void addUser(FirebaseFirestore db, String first, String last, int born, String email){
-//        user.put("first", first);
-//        user.put("last", last);
-//        user.put("born", born);
-//        user.put("email", email);
-//        db.collection("users").add(user);
-//    }
+    protected void buildUI (Location[] locationData) {
+
+        String name[] = new String[locationData.length];
+        String contact[] = new String[locationData.length];
+
+        for (int i = 0; i < locationData.length; i++){
+            name[i] = locationData[i].name;
+            contact[i] = locationData[i].contact;
+            Log.d("BUILDUI NAME AT INDEX " + i, name[i]);
+            Log.d("BUILDUI CONTACT AT INDEX " + i, contact[i]);
+        }
+
+        recyclerView = findViewById(R.id.recyclerView);
+
+//        s1 = getResources().getStringArray(R.array.locations);
+//        s2 = getResources().getStringArray(R.array.contacts);
+
+        //initialization of class + passing all values:
+        MyAdaptor myAdaptor = new MyAdaptor(this, s1=name, s2=contact, images, button);
+        recyclerView.setAdapter(myAdaptor);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
 
 }
