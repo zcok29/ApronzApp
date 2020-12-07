@@ -1,36 +1,36 @@
-/*
- * SecondActivity
- */
 package com.example.mvp;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
+import android.view.ContextThemeWrapper;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SecondActivity extends AppCompatActivity {
-
+public class CommentPageActivity extends AppCompatActivity {
     // Used to add comment to database
     Map<String, Object> commentMap = new HashMap<>();
     public FirebaseFirestore db;
@@ -46,46 +46,32 @@ public class SecondActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: Find a way to add location ID automatically instead of manually.
-//        locationIDMap.put("Leonard Center", "5rVYLk5xYwA36yTgUMeC");
-//        locationIDMap.put("Campus Center", "J5ri7Dlp55HcZ4V0CQvo");
-//        locationIDMap.put("Olin Rice", "up6LwcknYyqVJe1gxiKi");
-        setContentView(R.layout.activity_second);
 
-        // Get Firestore database instance
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_comment_page);
+
+
         db = FirebaseFirestore.getInstance();
+        String pageName = getResources().getString(R.string.title_activity_comment_page);
+
         if (getIntent().hasExtra("LOCATION NAME")) {
-            TextView tv = (TextView) findViewById(R.id.locationText);
             location = getIntent().getExtras().getString("LOCATION NAME");
-            tv.setText(location);
 //            locationID = locationIDMap.get(location);
+            pageName = String.format(pageName,location);
             locationID = getIntent().getExtras().getString("DOCUMENT ID");
         }
 
-//        displayComment();
-        getComments(db, locationID);
+        FloatingActionButton fab = findViewById(R.id.addCommentButton);
 
-        editText = (EditText) findViewById(R.id.edit_text);
+        editText = (EditText) findViewById(R.id.add_comment_text);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                Toast.makeText(SecondActivity.this, String.valueOf(actionId), Toast.LENGTH_SHORT).show();
+                Toast.makeText(CommentPageActivity.this, String.valueOf(actionId), Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
 
-
-        ImageButton returnButton = findViewById(R.id.return_button);
-        returnButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent(SecondActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,6 +81,15 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        toolBarLayout.setTitle(pageName);
+
+        System.out.println(locationID);
+
+        displayComment();
 
     }
 
@@ -112,19 +107,10 @@ public class SecondActivity extends AppCompatActivity {
     }
 
 
-//    public void displayComment() {
-//        getComments(db, locationID);
-//        //System.out.println(comments.toString());
-//        //TextView comment1 = (TextView) findViewById(R.id.comment_text);
-//    }
-
-
     /**
      * This function gets the comment data of a specific location from the database
      */
     protected void getComments(FirebaseFirestore db, String documentID) {
-
-        TextView comment1 = (TextView) findViewById(R.id.comment_text);
         db.collection("locations").document(documentID).collection("comments").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -132,6 +118,7 @@ public class SecondActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Creates an array of comments with the proper size
                             commentData = new ArrayList<>(task.getResult().size());
+                            int commentID = 0;
 
                             for (QueryDocumentSnapshot doc : task.getResult()) {
                                 // Creates a new comment object with the data pulled from the location with the corresponding document ID
@@ -139,11 +126,19 @@ public class SecondActivity extends AppCompatActivity {
                                 // Logs the comment object for testing purposes
                                 Log.d("SINGLE COMMENT OBJECT", comment.content + ", " + comment.timestamp);
                                 // Currently I'm using a textview object to update the comments. This is really not ideal since we need the time stamps and user name in the future.
-                                String commentStr = comment1.getText().toString();
-                                commentStr = commentStr+"\n"+ comment.content;
-                                comment1.setText(commentStr);
+                                //String commentStr = comment1.getText().toString();
+                                //commentStr = commentStr+"\n"+ comment.content;
+                                //comment1.setText(commentStr);
 
                                 // Adds comment object to commentData array
+//                                Context context = new ContextThemeWrapper();
+                                LinearLayout commentLayout = (LinearLayout) findViewById(R.id.comment_layout);
+                                TextView commentView = new TextView(getApplicationContext());
+                                commentView.setText(comment.getContent());
+                                commentView.setTextSize(30);
+                                commentLayout.addView(commentView);
+
+                                commentID++;
                                 commentData.add(comment);
                             }
                         } else {
@@ -151,10 +146,15 @@ public class SecondActivity extends AppCompatActivity {
                         }
                     }
                 });
+
     }
 
 
+    public void displayComment() {
+        getComments(db, locationID);
+        //TextView comment1 = (TextView) findViewById(R.id.comment_text);
 
+    }
 
 
 }

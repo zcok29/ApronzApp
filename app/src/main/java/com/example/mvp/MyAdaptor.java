@@ -63,7 +63,7 @@ public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.MyViewHolder> {
             @Override
             public void onClick(View v) {
 
-                Intent startIntent = new Intent(context.getApplicationContext(), SecondActivity.class);
+                Intent startIntent = new Intent(context.getApplicationContext(),CommentPageActivity.class);
                 startIntent.putExtra("LOCATION NAME", location);
                 startIntent.putExtra("DOCUMENT ID", locationData.get(position).documentID);
                 context.startActivity(startIntent);
