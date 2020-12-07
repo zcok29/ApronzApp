@@ -45,9 +45,6 @@ public class MainActivity extends AppCompatActivity {
     // Location Data
     List<Location> locationData;
 
-    // Used in addLocation function
-    Map<String, Object> locationMap = new HashMap<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
      * Function Example:   getOneLocation(db, "name", "Leonard Center")
      *
      */
-    protected void getOneLocation(FirebaseFirestore db, String key, String value){
+    public void getOneLocation(FirebaseFirestore db, String key, String value){
         db.collection("locations").whereEqualTo(key, value).get()
           .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
               @Override
@@ -105,21 +102,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /**
-     * This function adds locations to the database
-     */
-    protected void addLocation(FirebaseFirestore db, String name, String contact, String address){
-        locationMap.put("name", name);
-        locationMap.put("contact", contact);
-        locationMap.put("address", address);
-        db.collection("locations").add(locationMap);
-    }
-
-
     /*
      * This function currently gets and logs the current locations in the database
      */
-    protected void getLocations(FirebaseFirestore db){
+    public void getLocations(FirebaseFirestore db){
         db.collection("locations").get()
           .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
               @Override
@@ -151,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
           });
     }
 
-        protected void buildUI(List<Location> locationData){
+        public void buildUI(List<Location> locationData){
 //            String names[] = new String[locationData.length];
 //            String contacts[] = new String[locationData.length];
 //            String documentIDs[] = new String[locationData.length];
