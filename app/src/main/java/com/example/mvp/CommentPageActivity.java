@@ -110,7 +110,7 @@ public class CommentPageActivity extends AppCompatActivity {
     /**
      * This function gets the comment data of a specific location from the database
      */
-    protected void getComments(FirebaseFirestore db, String documentID) {
+    public void getComments(FirebaseFirestore db, String documentID) {
         db.collection("locations").document(documentID).collection("comments").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -118,13 +118,13 @@ public class CommentPageActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Creates an array of comments with the proper size
                             commentData = new ArrayList<>(task.getResult().size());
-                            int commentID = 0;
 
                             for (QueryDocumentSnapshot doc : task.getResult()) {
                                 // Creates a new comment object with the data pulled from the location with the corresponding document ID
                                 Comment comment = new Comment(doc.getData().get("content").toString(), doc.getData().get("timestamp").toString());
                                 // Logs the comment object for testing purposes
                                 Log.d("SINGLE COMMENT OBJECT", comment.content + ", " + comment.timestamp);
+
                                 // Currently I'm using a textview object to update the comments. This is really not ideal since we need the time stamps and user name in the future.
                                 //String commentStr = comment1.getText().toString();
                                 //commentStr = commentStr+"\n"+ comment.content;
@@ -138,15 +138,22 @@ public class CommentPageActivity extends AppCompatActivity {
                                 commentView.setTextSize(30);
                                 commentLayout.addView(commentView);
 
-                                commentID++;
                                 commentData.add(comment);
                             }
                         } else {
                             Log.w("ERROR", "Error getting documents.", task.getException());
                         }
+
+                        // Uses the retrieved location information to build the UI for the app
+                        showComments(commentData);
                     }
                 });
 
+    }
+
+
+    public void showComments(List<Comment> commentData){
+        // Display comments here, you will be able to access the comment objects added in commentData
     }
 
 
