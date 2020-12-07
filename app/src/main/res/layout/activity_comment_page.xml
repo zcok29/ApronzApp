@@ -33,7 +33,9 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/comment_scrolling" />
+    <include
+        layout="@layout/comment_scrolling"
+        android:layout_width="415dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

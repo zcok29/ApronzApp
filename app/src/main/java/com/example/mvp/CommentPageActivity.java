@@ -1,6 +1,7 @@
 package com.example.mvp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -8,11 +9,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -136,7 +140,19 @@ public class CommentPageActivity extends AppCompatActivity {
                                 TextView commentView = new TextView(getApplicationContext());
                                 commentView.setText(comment.getContent());
                                 commentView.setTextSize(30);
+                                commentView.setId(commentID);
+                                commentView.setSingleLine(false);
+                                commentView.setClickable(true);
+                                commentView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent(CommentPageActivity.this, AddLocationActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+
                                 commentLayout.addView(commentView);
+
 
                                 commentID++;
                                 commentData.add(comment);
@@ -151,7 +167,19 @@ public class CommentPageActivity extends AppCompatActivity {
 
 
     public void displayComment() {
-        getComments(db, locationID);
+
+
+        db.collection("locations").document(locationID).collection("comments").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                LinearLayout commentLayout = (LinearLayout) findViewById(R.id.comment_layout);
+                commentLayout.removeAllViews();
+                getComments(db, locationID);
+            }
+        });
+
+
+
         //TextView comment1 = (TextView) findViewById(R.id.comment_text);
 
     }
