@@ -1,7 +1,7 @@
 /*
  * MyAdaptor
  */
-package com.example.mvp;
+package com.example.macExplore;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,11 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.MyViewHolder> {
 

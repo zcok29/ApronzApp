@@ -5,7 +5,7 @@
  * from the database.
  */
 
-package com.example.mvp;
+package com.example.macExplore;
 
 public class Location {
 
