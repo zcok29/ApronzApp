@@ -1,4 +1,4 @@
-package com.example.macExplore;
+package com.example.mvp;
 
 import android.os.Bundle;
 

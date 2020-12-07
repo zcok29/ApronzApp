@@ -5,7 +5,7 @@
  * from the database.
  */
 
-package com.example.macExplore;
+package com.example.mvp;
 
 public class Comment {
 

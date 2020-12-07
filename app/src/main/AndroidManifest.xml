@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.macExplore">
+    package="com.example.mvp">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -16,14 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MVP">
         <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.MVP.NoActionBar"></activity>
-
-        <activity
             android:name=".AddLocationActivity"
             android:label="@string/title_activity_add_location"
-            android:theme="@style/Theme.MVP.NoActionBar" />
+            android:theme="@style/Theme.MVP.NoActionBar"></activity>
         <activity
             android:name=".CommentPageActivity"
             android:label="@string/title_activity_comment_page"
@@ -40,7 +35,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ui.login.LoginActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
