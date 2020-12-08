@@ -1,4 +1,4 @@
-package com.example.mvp;
+package com.example.macExplore;
 
 import org.junit.Test;
 
