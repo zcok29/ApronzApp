@@ -1,6 +1,7 @@
 package com.example.macExplore;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -8,6 +9,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.common.collect.Lists;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -16,6 +18,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -28,7 +31,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +71,8 @@ public class CommentPageActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.addCommentButton);
 
+        editText = new EditText(getApplicationContext());
+
         editText = (EditText) findViewById(R.id.add_comment_text);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -78,7 +85,7 @@ public class CommentPageActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addCommentToDb();
+               addCommentToDb();
                 Snackbar.make(view, "Comment added", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -116,6 +123,7 @@ public class CommentPageActivity extends AppCompatActivity {
     public void getComments(FirebaseFirestore db, String documentID) {
         db.collection("locations").document(documentID).collection("comments").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
@@ -135,11 +143,7 @@ public class CommentPageActivity extends AppCompatActivity {
 
                                 // Adds comment object to commentData array
 //                                Context context = new ContextThemeWrapper();
-                                LinearLayout commentLayout = (LinearLayout) findViewById(R.id.comment_layout);
-                                TextView commentView = new TextView(getApplicationContext());
-                                commentView.setText(comment.getContent());
-                                commentView.setTextSize(30);
-                                commentLayout.addView(commentView);
+
 
                                 commentData.add(comment);
                             }
@@ -155,7 +159,19 @@ public class CommentPageActivity extends AppCompatActivity {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void showComments(List<Comment> commentData){
+        commentData.sort(new CommentComparator());
+
+        for(Comment comment:commentData){
+            LinearLayout commentLayout = (LinearLayout) findViewById(R.id.comment_layout);
+            TextView commentView = new TextView(getApplicationContext());
+            String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (Integer.parseInt(comment.getTimestamp())*1000));
+            commentView.setText(comment.getContent()+"   "+date);
+            commentView.setTextSize(30);
+            commentLayout.addView(commentView);
+        }
+
         // Display comments here, you will be able to access the comment objects added in commentData
     }
 

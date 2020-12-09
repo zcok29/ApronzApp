@@ -7,7 +7,7 @@
 
 package com.example.macExplore;
 
-public class Comment {
+public class Comment{
 
         public String content;
         public String timestamp;
