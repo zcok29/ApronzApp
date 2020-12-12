@@ -11,6 +11,7 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
+        android:background="#01426A"
         android:fitsSystemWindows="true"
         android:theme="@style/Theme.MVP.AppBarOverlay">
 
@@ -34,8 +35,10 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <include
+        android:id="@+id/include2"
         layout="@layout/comment_scrolling"
         android:layout_width="415dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,17 +62,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:layout_marginTop="0dp" />
+                android:layout_marginTop="0dp"
+                android:background="#B9BDBD"
+                android:hint="Add Comment" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addCommentButton"
-            android:layout_width="45dp"
-            android:layout_height="55dp"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
+            android:background="#EF4F26"
             android:clickable="true"
             android:orientation="horizontal"
+            app:backgroundTint="#EF4F26"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@android:drawable/ic_input_add"
             tools:layout_editor_absoluteY="635dp"
