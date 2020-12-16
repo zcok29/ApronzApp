@@ -178,27 +178,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void buildUI(List<Location> locationData){
-//            String names[] = new String[locationData.length];
-//            String contacts[] = new String[locationData.length];
-//            String documentIDs[] = new String[locationData.length];
-//
-//            for (int i = 0; i < locationData.length; i++){
-//                names[i] = locationData[i].name;
-//                contacts[i] = locationData[i].contact;
-//                documentIDs[i] = locationData[i].documentID;
-//                // Logs for testing
-//                Log.d("BUILDUI NAME AT INDEX " + i, names[i]);
-//                Log.d("BUILDUI CONTACT AT INDEX " + i, contacts[i]);
-//                Log.d("BUILDUI DOCID AT INDEX " + i, documentIDs[i]);
-//            }
 
         recyclerView = findViewById(R.id.recyclerView);
-
-//            s1 = getResources().getStringArray(R.array.locations);
-//            s2 = getResources().getStringArray(R.array.contacts);
-
-        //initialization of class + passing all values:
-//            LocationAdapter locationAdapter = new LocationAdapter(this, s1=names, s2=contacts, images, button);
         LocationAdapter locationAdapter = new LocationAdapter(this, locationData, images, button);
         recyclerView.setAdapter(locationAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
