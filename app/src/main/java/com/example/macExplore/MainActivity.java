@@ -10,7 +10,6 @@ import android.widget.Button;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -199,9 +198,9 @@ public class MainActivity extends AppCompatActivity {
 //            s2 = getResources().getStringArray(R.array.contacts);
 
         //initialization of class + passing all values:
-//            MyAdaptor myAdaptor = new MyAdaptor(this, s1=names, s2=contacts, images, button);
-        MyAdaptor myAdaptor = new MyAdaptor(this, locationData, images, button);
-        recyclerView.setAdapter(myAdaptor);
+//            LocationAdapter locationAdapter = new LocationAdapter(this, s1=names, s2=contacts, images, button);
+        LocationAdapter locationAdapter = new LocationAdapter(this, locationData, images, button);
+        recyclerView.setAdapter(locationAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

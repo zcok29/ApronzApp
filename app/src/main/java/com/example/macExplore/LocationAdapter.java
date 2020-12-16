@@ -1,5 +1,5 @@
 /*
- * MyAdaptor
+ * LocationAdapter
  */
 package com.example.macExplore;
 
@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.MyViewHolder> {
+public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyViewHolder> {
 
 //    String data1[], data2[];
     int images[];
@@ -25,8 +25,8 @@ public class MyAdaptor extends RecyclerView.Adapter<MyAdaptor.MyViewHolder> {
     Button button;
     List<Location> locationData;
 
-//    public MyAdaptor(Context ct, String s1[], String s2[], int img[], Button btn){
-    public MyAdaptor(Context ct, List<Location> locationData, int img[], Button btn){
+//    public LocationAdapter(Context ct, String s1[], String s2[], int img[], Button btn){
+    public LocationAdapter(Context ct, List<Location> locationData, int img[], Button btn){
         context = ct;
 //        data1 = s1;
 //        data2 = s2;
