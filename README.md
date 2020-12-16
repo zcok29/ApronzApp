@@ -48,6 +48,4 @@ To run the app on the Android Emulator:
 INSERT DEMO PICS!!!
 
 ### Authors
-Ronan Wallace
-Yijie (Apple) Guo
-Zala Cok
+Ronan Wallace, Yijie (Apple) Guo, Zala Cok
