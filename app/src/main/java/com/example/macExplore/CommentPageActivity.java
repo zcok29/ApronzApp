@@ -166,7 +166,7 @@ public class CommentPageActivity extends AppCompatActivity {
         for(Comment comment:commentData){
             LinearLayout commentLayout = (LinearLayout) findViewById(R.id.comment_layout);
             TextView commentView = new TextView(getApplicationContext());
-            String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (Integer.parseInt(comment.getTimestamp())*1000));
+            String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (Integer.parseInt(comment.getTimestamp())*1000L));
             commentView.setText(comment.getContent()+"   "+date);
             commentView.setTextSize(30);
             commentLayout.addView(commentView);
