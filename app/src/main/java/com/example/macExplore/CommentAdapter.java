@@ -49,14 +49,11 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-
         TextView myText1, myText2;
-
-
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             myText1 = itemView.findViewById(R.id.commentText);
-            myText2 = itemView.findViewById(R.id.timeStampText);
+            myText2 = itemView.findViewById(R.id.timestampText);
             }
     }
 }
