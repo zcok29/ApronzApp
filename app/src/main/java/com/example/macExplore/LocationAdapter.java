@@ -19,7 +19,6 @@ import java.util.List;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyViewHolder> {
 
-//    String data1[], data2[];
     int images[];
     Context context;
     Button button;
@@ -28,8 +27,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
 //    public LocationAdapter(Context ct, String s1[], String s2[], int img[], Button btn){
     public LocationAdapter(Context ct, List<Location> locationData, int img[], Button btn){
         context = ct;
-//        data1 = s1;
-//        data2 = s2;
         images = img;
         button = btn;
         this.locationData = locationData;
@@ -47,8 +44,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-//        String location = data1[position];
-//        String contact = data2[position];
         String location = locationData.get(position).name;
         String contact = locationData.get(position).contact;
         holder.myText1.setText(location);
