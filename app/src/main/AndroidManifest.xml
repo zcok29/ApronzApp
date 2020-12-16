@@ -15,11 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MVP">
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/Theme.MVP.NoActionBar"></activity>
-
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".ui.login.SignUpActivity" />
         <activity
             android:name=".AddLocationActivity"
             android:label="@string/title_activity_add_location"
