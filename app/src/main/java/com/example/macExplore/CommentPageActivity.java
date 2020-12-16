@@ -111,7 +111,6 @@ public class CommentPageActivity extends AppCompatActivity {
         // Prepares the comment data in a hash map to be sent to the database
         commentMap.put("content", comment);
         commentMap.put("timestamp", epoch);
-
         // Sends the prepared comment data to the database with doc ID "J5ri7Dlp55HcZ4V0CQvo"
         db.collection("locations").document(locationID).collection("comments").add(commentMap);
     }
