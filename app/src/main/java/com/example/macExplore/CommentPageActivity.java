@@ -46,7 +46,6 @@ public class CommentPageActivity extends AppCompatActivity {
     public String location;
     public String locationID;
 
-//    public Map<String, String> locationIDMap = new HashMap<>();
 
     // Used in getComments function
     List<Comment> commentData;
@@ -134,22 +133,11 @@ public class CommentPageActivity extends AppCompatActivity {
                                 Comment comment = new Comment(doc.getData().get("content").toString(), doc.getData().get("timestamp").toString());
                                 // Logs the comment object for testing purposes
                                 Log.d("SINGLE COMMENT OBJECT", comment.content + ", " + comment.timestamp);
-
-                                // Currently I'm using a textview object to update the comments. This is really not ideal since we need the time stamps and user name in the future.
-                                //String commentStr = comment1.getText().toString();
-                                //commentStr = commentStr+"\n"+ comment.content;
-                                //comment1.setText(commentStr);
-
-                                // Adds comment object to commentData array
-//                                Context context = new ContextThemeWrapper();
-
-
                                 commentData.add(comment);
                             }
                         } else {
                             Log.w("ERROR", "Error getting documents.", task.getException());
                         }
-
                         // Uses the retrieved location information to build the UI for the app
                         showComments(commentData);
                     }
