@@ -51,6 +51,7 @@ To run the app on the Android Emulator:
 </p>
 That will take you to a page where you will be able to enter a preferred username and log in with you Macalester email and a password of choice. 
 <br />
+<br />
 2. Next, you will stumble upon the list of locations.
 <p align="center">
  ![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/locationspage.jpg?raw=true "Locations Pic")
