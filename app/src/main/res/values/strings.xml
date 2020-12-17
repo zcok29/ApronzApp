@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MacGem</string>
+    <string name="app_name">MacGems</string>
     <string-array name="locations">
         <item>Olin Rice</item>
         <item>Campus Center</item>
