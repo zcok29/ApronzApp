@@ -80,7 +80,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addCommentButton"
             android:layout_width="69dp"
-            android:layout_height="72dp"
+            android:layout_height="69dp"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:background="#EF4F26"

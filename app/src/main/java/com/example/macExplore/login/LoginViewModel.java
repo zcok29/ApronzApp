@@ -55,7 +55,7 @@ public class LoginViewModel extends ViewModel {
         if (email == null) {
             return false;
         }
-        else if (email.contains("@macalester")) {
+        else if (email.contains("@macalester.edu")) {
             return true;
         } else {
             return false;
