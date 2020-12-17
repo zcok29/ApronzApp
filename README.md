@@ -46,8 +46,9 @@ To run the app on the Android Emulator:
 
 ### How to navigate and use MacGems?
 When you open the app, the first page will ask for your email address and a password. If this is your first time logging in, you will want to click on the writing below the Sign In button.
-![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/loginpage.jpg?raw=true "Login Pic")
-
+<p align="center">
+  <img width="460" height="300" src=![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/loginpage.jpg?raw=true "Login Pic")>
+</p>
 That will take you to a page where you will be able to enter a preferred username and log in with you Macalester email and a password of choice. 
 
 Next, you will stumble upon the list of locations.
