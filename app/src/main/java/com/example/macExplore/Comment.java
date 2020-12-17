@@ -11,12 +11,10 @@ public class Comment{
 
         public String content;
         public String timestamp;
-        public String user;
 
-        public Comment(String content, String timestamp, String user){
+        public Comment(String content, String timestamp){
                 this.content = content;
                 this.timestamp = timestamp;
-                this.user = user;
         }
 
         public String getContent(){
@@ -26,7 +24,5 @@ public class Comment{
         public String getTimestamp(){
                 return timestamp;
         }
-
-        public String getUser(){return user;}
 
 }
