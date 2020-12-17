@@ -44,7 +44,7 @@ To run the app on the Android Emulator:
 1. Select a preferred device (Available devices/AVD Manager/Create Virtual Device).
 2. Click the run button.
 
-![Alt text](/../<screenshots>/path/to/loginpage.png?raw=true "Login Pic")
+![Alt text](/../<screenshots>/github.com/zcok29/ApronzApp/blob/screenshots/loginpage.PNG?raw=true "Login Pic")
 
 ### How to navigate and use MacGems?
 INSERT DEMO PICS!!!
