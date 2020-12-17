@@ -37,7 +37,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String comment = commentData.get(position).content;
-        String timestamp = commentData.get(position).timestamp;
+        String timestamp = new java.text.SimpleDateFormat("HH:mm  MM/dd/yy").format(new java.util.Date (Integer.parseInt(commentData.get(position).timestamp)*1000L));
         holder.myText1.setText(comment);
         holder.myText2.setText(timestamp);
 

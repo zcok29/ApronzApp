@@ -21,6 +21,8 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.ContextThemeWrapper;
@@ -149,15 +151,19 @@ public class CommentPageActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void showComments(List<Comment> commentData){
         commentData.sort(new CommentComparator());
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewComment);
+        CommentAdapter commentAdapter = new CommentAdapter(this, commentData);
+        recyclerView.setAdapter(commentAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        for(Comment comment:commentData){
-            LinearLayout commentLayout = (LinearLayout) findViewById(R.id.comment_layout);
-            TextView commentView = new TextView(getApplicationContext());
-            String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (Integer.parseInt(comment.getTimestamp())*1000L));
-            commentView.setText(comment.getContent()+"   "+date);
-            commentView.setTextSize(30);
-            commentLayout.addView(commentView);
-        }
+//        for(Comment comment:commentData){
+//            LinearLayout commentLayout = (LinearLayout) findViewById(R.id.comment_layout);
+//            TextView commentView = new TextView(getApplicationContext());
+//            String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (Integer.parseInt(comment.getTimestamp())*1000L));
+//            commentView.setText(comment.getContent()+"   "+date);
+//            commentView.setTextSize(30);
+//            commentLayout.addView(commentView);
+//        }
 
         // Display comments here, you will be able to access the comment objects added in commentData
     }
