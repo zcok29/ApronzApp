@@ -9,9 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MVP">
-        <activity android:name=".MainActivity"
-          />
-
+        <activity android:name=".SingleCommentActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".AddLocationActivity"
             android:label="@string/title_activity_add_location"
@@ -20,16 +19,14 @@
             android:name=".CommentPageActivity"
             android:label="@string/title_activity_comment_page"
             android:theme="@style/Theme.MVP.NoActionBar" />
-
         <activity android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login.SignUpActivity"
-            />
-
+        <activity android:name=".login.SignUpActivity" />
     </application>
 
 </manifest>

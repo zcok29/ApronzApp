@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#E8E8E8"
+    android:background="#f2f9fa"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,9 +12,10 @@
         android:layout_width="419dp"
         android:layout_height="130dp"
         android:layout_marginBottom="27dp"
-        android:background="#E8E8E8"
+        android:background="#f2f9fa"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
@@ -23,17 +24,18 @@
             android:id="@+id/usernameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="8dp"
             android:text="username"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:textSize="24sp" />
 
         <TextView
             android:id="@+id/commentText"
-            android:layout_width="380dp"
-            android:layout_height="92dp"
+            android:layout_width="359dp"
+            android:layout_height="93dp"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="10dp"
             android:ellipsize="marquee"
@@ -45,40 +47,37 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.466"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.826" />
+            app:layout_constraintVertical_bias="0.608" />
+
+        <TextView
+            android:id="@+id/timestampText"
+            android:layout_width="128dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="16dp"
+            android:gravity="left"
+            android:text="Timestamp"
+            android:textColor="#01426A"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.898"
+            app:layout_constraintStart_toEndOf="@+id/usernameText"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Space
-        android:layout_width="266dp"
-        android:layout_height="26dp"
-        android:layout_marginEnd="396dp"
-        android:layout_marginRight="396dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
-        android:id="@+id/timestampText"
-        android:layout_width="128dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="268dp"
-        android:layout_marginLeft="268dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        android:gravity="left"
-        android:text="Timestamp"
-        android:textColor="#01426A"
-        android:textSize="16sp"
+        android:id="@+id/viewMoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:text="View more >>"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
