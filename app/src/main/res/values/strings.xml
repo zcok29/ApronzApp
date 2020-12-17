@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MacGem</string>
+    <string name="app_name">MacExplore</string>
     <string-array name="locations">
         <item>Olin Rice</item>
         <item>Campus Center</item>
@@ -28,10 +28,10 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome!"</string>
-    <string name="invalid_username">Not a valid Macalester email</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_main2">MainActivity</string>
@@ -41,12 +41,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
-    <string name="menu_myPost">My Posts</string>
-    <string name="menu_logout">Logout</string>
-    <string name="title_activity_main">MainActivity</string>
-
-    <string name="menu_home">Home</string>
+    <string name="menu_home">MacExplore</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-
 </resources>

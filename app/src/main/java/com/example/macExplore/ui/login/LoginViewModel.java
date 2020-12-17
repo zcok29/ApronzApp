@@ -6,22 +6,22 @@ import androidx.lifecycle.ViewModel;
 
 import android.util.Patterns;
 
-//import com.example.macExplore.data.LoginRepository;
-//import com.example.macExplore.data.Result;
-//import com.example.macExplore.data.model.LoggedInUser;
+import com.example.macExplore.data.LoginRepository;
+import com.example.macExplore.data.Result;
+import com.example.macExplore.data.model.LoggedInUser;
 import com.example.macExplore.R;
 
 public class LoginViewModel extends ViewModel {
 
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
-//    private LoginRepository loginRepository;
-//
-//   // LoginViewModel(LoginRepository loginRepository) {
-//        this.loginRepository = loginRepository;
-//    }
+    private LoginRepository loginRepository;
 
-    public LiveData<LoginFormState> getLoginFormState() {
+    LoginViewModel(LoginRepository loginRepository) {
+        this.loginRepository = loginRepository;
+    }
+
+    LiveData<LoginFormState> getLoginFormState() {
         return loginFormState;
     }
 
@@ -29,20 +29,20 @@ public class LoginViewModel extends ViewModel {
         return loginResult;
     }
 
-//    public void login(String email, String password) {
-//        // can be launched in a separate asynchronous job
-//        Result<LoggedInUser> result = loginRepository.login(email, password);
-//
-//        if (result instanceof Result.Success) {
-//            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
-//            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
-//        } else {
-//            loginResult.setValue(new LoginResult(R.string.login_failed));
-//        }
-//    }
+    public void login(String username, String password) {
+        // can be launched in a separate asynchronous job
+        Result<LoggedInUser> result = loginRepository.login(username, password);
 
-    public void loginDataChanged(String email, String password) {
-        if (!isUserNameValid(email)) {
+        if (result instanceof Result.Success) {
+            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
+            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+        } else {
+            loginResult.setValue(new LoginResult(R.string.login_failed));
+        }
+    }
+
+    public void loginDataChanged(String username, String password) {
+        if (!isUserNameValid(username)) {
             loginFormState.setValue(new LoginFormState(R.string.invalid_username, null));
         } else if (!isPasswordValid(password)) {
             loginFormState.setValue(new LoginFormState(null, R.string.invalid_password));
@@ -52,14 +52,14 @@ public class LoginViewModel extends ViewModel {
     }
 
     // A placeholder username validation check
-    private boolean isUserNameValid(String email) {
-        if (email == null) {
+    private boolean isUserNameValid(String username) {
+        if (username == null) {
             return false;
         }
-        else if (email.contains("@macalester")) {
-            return true;
+        if (username.contains("@")) {
+            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
         } else {
-            return false;
+            return !username.trim().isEmpty();
         }
     }
 
