@@ -45,7 +45,21 @@ To run the app on the Android Emulator:
 2. Click the run button.
 
 ### How to navigate and use MacGems?
-![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/addlocationscrean.jpg?raw=true "Login Pic")
+When you open the app, the first page will ask for your email address and a password. If this is your first time logging in, you will want to click on the writing below the Sign In button.
+![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/loginpage.jpg?raw=true "Login Pic")
+That will take you to a page where you will be able to enter a preferred username and log in with you Macalester email and a password of choice. 
+
+Next, you will stumble upon the list of locations.
+![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/loginpage.jpg?raw=true "Locations Pic")
+You can scroll and look at all the options. If you are interested to find out more about a location of choice, click the Explore button.
+
+That will take you to the location's personalized comment page.
+![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/commentpage.jpg?raw=true "Comments Pic")
+You can scroll through all the comments, or you can submit your own by typing a desired message into the Add Comment box and clicking the orange Add button. If you want to take a better look at a particular comment, click View More.
+
+The first page also offers the possibility of adding your own location to the list, allowing other users to get to know your favorite spots around campus. 
+![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/addlocationscreanpage.jpg?raw=true "Add Location Pic")
+Simply input the name of the location, contact information, and an address so your hidden gem can become a shared treasure! 
 
 ### Authors
 Ronan Wallace, Yijie (Apple) Guo, Zala Cok
