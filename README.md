@@ -45,7 +45,7 @@ To run the app on the Android Emulator:
 2. Click the run button.
 
 ### How to navigate and use MacGems?
-![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/loginpage.png?raw=true "Login Pic")
+![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/addlocationscrean.jpg?raw=true "Login Pic")
 
 ### Authors
 Ronan Wallace, Yijie (Apple) Guo, Zala Cok
