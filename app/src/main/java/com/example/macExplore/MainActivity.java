@@ -34,24 +34,19 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     String s1[], s2[];
-//    int images[] = {R.drawable.aolinrice, R.drawable.cc, R.drawable.lc, R.drawable.aolinrice_copy};
     Button button;
 
-    // Location Data
     List<Location> locationData;
 
-    // Used in addLocation function
     Map<String, Object> locationMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Firestore instance
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
-        // Retrieves location data from the database (proceeds to build UI)
         getLocations(db);
 
     }
@@ -77,8 +72,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*
-     * This function currently gets and logs the current locations in the database
+    /** This function currently gets and logs the current locations in the database
      */
     protected void getLocations(FirebaseFirestore db){
         db.collection("locations").get()
@@ -86,27 +80,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            // Creates an array of locations with the proper size
                             locationData = new ArrayList<Location>(task.getResult().size());
 
                             for (QueryDocumentSnapshot doc : task.getResult()) {
-                                // Keeping these commented logs to use as a reference
-                                // Log.d("CHECK", document.getId() + " => " + document.getData().values());
-                                // Log.d("CHECK STRING", document.getData().get("contact").toString());
-
-                                // Creates a new location object with the data pulled from the database
                                 Location location = new Location(doc.getData().get("name").toString(), doc.getData().get("contact").toString(), doc.getData().get("address").toString(), doc.getId());
-                                // Logs the location object for testing purposes
                                 Log.d("LOCATION OBJECT", location.documentID + " - " + location.name + ", " + location.contact + ", " + location.address);
 
-                                // Adds location object to locationData array
                                 locationData.add(location);
                             }
                         } else {
                             Log.w("ERROR", "Error getting documents.", task.getException());
                         }
 
-                        // Uses the retrieved location information to build the UI for the app
                         buildUI(locationData);
                     }
                 });

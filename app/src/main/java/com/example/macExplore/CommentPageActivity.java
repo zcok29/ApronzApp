@@ -43,7 +43,6 @@ import java.util.List;
 import java.util.Map;
 
 public class CommentPageActivity extends AppCompatActivity {
-    // Used to add comment to database
     Map<String, Object> commentMap = new HashMap<>();
     public FirebaseFirestore db;
     public EditText editText;
@@ -51,10 +50,7 @@ public class CommentPageActivity extends AppCompatActivity {
     public String locationID;
     private FirebaseAuth mAuth;
 
-
-    // Used in getComments function
     List<Comment> commentData;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +91,6 @@ public class CommentPageActivity extends AppCompatActivity {
             }
         });
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
@@ -108,7 +103,6 @@ public class CommentPageActivity extends AppCompatActivity {
     }
 
     public void addCommentToDb() {
-        // Gets the text and timestamp when the fab button is pressed
         String comment = editText.getText().toString();
         String userID = mAuth.getCurrentUser().getUid();
         long epoch = System.currentTimeMillis() / 1000;
@@ -120,18 +114,9 @@ public class CommentPageActivity extends AppCompatActivity {
                 commentMap.put("timestamp", epoch);
                 commentMap.put("user", value.getString("username"));
 
-                // Sends the prepared comment data to the database with doc ID "J5ri7Dlp55HcZ4V0CQvo"
                 db.collection("locations").document(locationID).collection("comments").add(commentMap);
             }
         });
-
-        // Prepares the comment data in a hash map to be sent to the database
-//        commentMap.put("content", comment);
-//        commentMap.put("timestamp", epoch);
-//        commentMap.put("user", user.getText().toString());
-//
-//        // Sends the prepared comment data to the database with doc ID "J5ri7Dlp55HcZ4V0CQvo"
-//        db.collection("locations").document(locationID).collection("comments").add(commentMap);
     }
 
 
@@ -145,26 +130,20 @@ public class CommentPageActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            // Creates an array of comments with the proper size
                             commentData = new ArrayList<>(task.getResult().size());
 
                             for (QueryDocumentSnapshot doc : task.getResult()) {
-                                // Creates a new comment object with the data pulled from the location with the corresponding document ID
                                 Comment comment = new Comment(doc.getData().get("content").toString(), doc.getData().get("timestamp").toString(),doc.getData().get("user").toString());
-                                // Logs the comment object for testing purposes
                                 Log.d("SINGLE COMMENT OBJECT", comment.content + ", " + comment.timestamp+", "+comment.user);
                                 commentData.add(comment);
                             }
                         } else {
                             Log.w("ERROR", "Error getting documents.", task.getException());
                         }
-                        // Uses the retrieved location information to build the UI for the app
                         showComments(commentData);
                     }
                 });
-
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void showComments(List<Comment> commentData){
@@ -173,19 +152,7 @@ public class CommentPageActivity extends AppCompatActivity {
         CommentAdapter commentAdapter = new CommentAdapter(this, commentData);
         recyclerView.setAdapter(commentAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-//        for(Comment comment:commentData){
-//            LinearLayout commentLayout = (LinearLayout) findViewById(R.id.comment_layout);
-//            TextView commentView = new TextView(getApplicationContext());
-//            String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (Integer.parseInt(comment.getTimestamp())*1000L));
-//            commentView.setText(comment.getContent()+"   "+date);
-//            commentView.setTextSize(30);
-//            commentLayout.addView(commentView);
-//        }
-
-        // Display comments here, you will be able to access the comment objects added in commentData
-    }
-
+   }
 
     public void displayComment() {
 

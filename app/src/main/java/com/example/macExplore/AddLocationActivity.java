@@ -19,7 +19,6 @@ import java.util.Map;
 
 public class AddLocationActivity extends AppCompatActivity {
 
-    // Used in addLocation function
     public Map<String, Object> locationMap = new HashMap<>();
     public EditText locationNameInput;
     public EditText contactInput;
