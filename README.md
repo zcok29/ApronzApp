@@ -52,18 +52,21 @@ When you open the app, the first page will ask for your email address and a pass
 That will take you to a page where you will be able to enter a preferred username and log in with you Macalester email and a password of choice. 
 
 Next, you will stumble upon the list of locations.
-![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/loginpage.jpg?raw=true "Locations Pic")
-
+<p align="center">
+ ![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/locationspage.jpg?raw=true "Locations Pic")
+</p>
 You can scroll and look at all the options. If you are interested to find out more about a location of choice, click the Explore button.
 
 That will take you to the location's personalized comment page.
-![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/commentpage.jpg?raw=true "Comments Pic")
-
+<p align="center">
+ ![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/commentpage.jpg?raw=true "Comments Pic")
+</p>
 You can scroll through all the comments, or you can submit your own by typing a desired message into the Add Comment box and clicking the orange Add button. If you want to take a better look at a particular comment, click View More.
 
 The first page also offers the possibility of adding your own location to the list, allowing other users to get to know your favorite spots around campus. 
-![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/addlocationscrean.jpg?raw=true "Add Location Pic")
-
+<p align="center">
+ ![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/addlocationscrean.jpg?raw=true "Comments Pic")
+</p>
 Simply input the name of the location, contact information, and an address so your hidden gem can become a shared treasure! 
 
 ### Authors
