@@ -4,19 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="#FFFFFF"
     android:orientation="vertical">
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#A2AAAD"
-        app:cardBackgroundColor="#A2AAAD"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </androidx.cardview.widget.CardView>
 
     <Space
         android:layout_width="70dp"
@@ -32,32 +21,61 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="460dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="27dp"
         android:background="#A2AAAD"
+        app:cardBackgroundColor="#A2AAAD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="470dp"
+        android:layout_height="163dp"
+        android:layout_marginBottom="27dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.906">
+
+        <Button
+            android:id="@+id/moreInfoBtn"
+            android:layout_width="109dp"
+            android:layout_height="62dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Explore"
+            android:textSize="15sp"
+            app:backgroundTint="#EF4F26"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.81"
+            app:layout_constraintStart_toEndOf="@+id/myImage"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.425" />
+
         <ImageView
             android:id="@+id/myImage"
-            android:layout_width="138dp"
-            android:layout_height="136dp"
+            android:layout_width="140dp"
+            android:layout_height="139dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_bias="0.384"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/locationText"
-            android:layout_width="240dp"
-            android:layout_height="65dp"
+            android:layout_width="177dp"
+            android:layout_height="72dp"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
             android:gravity="left"
@@ -67,10 +85,10 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/myImage"
+            app:layout_constraintHorizontal_bias="0.375"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.197" />
+            app:layout_constraintVertical_bias="0.467" />
 
         <TextView
             android:id="@+id/contactsText"
@@ -81,27 +99,12 @@
             android:textColor="#01426A"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/moreInfoBtn"
 
-            app:layout_constraintHorizontal_bias="0.54"
-            app:layout_constraintStart_toEndOf="@+id/myImage"
-            app:layout_constraintTop_toBottomOf="@+id/locationText"
-            app:layout_constraintVertical_bias="0.264" />
-
-        <Button
-            android:id="@+id/moreInfoBtn"
-            android:layout_width="106dp"
-            android:layout_height="57dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="Explore"
-            android:textSize="15sp"
-            app:backgroundTint="#EF4F26"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.825"
-            app:layout_constraintStart_toEndOf="@+id/myImage"
+            app:layout_constraintHorizontal_bias="0.349"
+            app:layout_constraintStart_toStartOf="@+id/myImage"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.908" />
+            app:layout_constraintVertical_bias="0.75" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
