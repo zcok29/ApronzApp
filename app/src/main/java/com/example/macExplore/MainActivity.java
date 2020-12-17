@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     String s1[], s2[];
-    int images[] = {R.drawable.aolinrice, R.drawable.cc, R.drawable.lc, R.drawable.aolinrice_copy};
+//    int images[] = {R.drawable.aolinrice, R.drawable.cc, R.drawable.lc, R.drawable.aolinrice_copy};
     Button button;
 
     // Location Data
@@ -113,12 +113,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void buildUI(List<Location> locationData){
-        int[] images2 = new int[locationData.size()];
+        int[] images = new int[locationData.size()];
         for(int i = 0; i < locationData.size(); i++){
-            images2[i] = R.drawable.adapter_img;
+            images[i] = R.drawable.adapter_img;
         }
         recyclerView = findViewById(R.id.mainRecyclerView);
-        LocationAdapter locationAdapter = new LocationAdapter(this, locationData, images2, button);
+        LocationAdapter locationAdapter = new LocationAdapter(this, locationData, images, button);
         recyclerView.setAdapter(locationAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
