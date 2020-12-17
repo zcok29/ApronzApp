@@ -67,6 +67,7 @@ You can scroll through all the comments, or you can submit your own by typing a 
 <br />
 <br />
 4. The first page also offers the possibility of adding your own location to the list, allowing other users to get to know your favorite spots around campus. 
+<br />
 <p align="center">
  ![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/addlocationscrean.jpg?raw=true "Comments Pic")
 </p>
