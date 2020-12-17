@@ -45,7 +45,7 @@ To run the app on the Android Emulator:
 2. Click the run button.
 
 ### How to navigate and use MacGems?
-1) When you open the app, the first page will ask for your email address and a password. If this is your first time logging in, you will want to click on the writing below the Sign In button.
+1)When you open the app, the first page will ask for your email address and a password. If this is your first time logging in, you will want to click on the writing below the Sign In button.
 <p align="center">
  ![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/loginpage.jpg?raw=true "Login Pic")
 </p>
