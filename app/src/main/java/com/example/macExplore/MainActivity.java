@@ -113,9 +113,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void buildUI(List<Location> locationData){
-
+        int[] images2 = new int[locationData.size()];
+        for(int i = 0; i < locationData.size(); i++){
+            images2[i] = R.drawable.adapter_img;
+        }
         recyclerView = findViewById(R.id.mainRecyclerView);
-        LocationAdapter locationAdapter = new LocationAdapter(this, locationData, images, button);
+        LocationAdapter locationAdapter = new LocationAdapter(this, locationData, images2, button);
         recyclerView.setAdapter(locationAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
