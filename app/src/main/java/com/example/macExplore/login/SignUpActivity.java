@@ -24,18 +24,25 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 //import com.example.macExplore.ui.login.LoginViewModelFactory;
 
 public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private LoginViewModel loginViewModel;
+    public FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
         final EditText usernameEditText = findViewById(R.id.signup_username);
         final EditText emailEditText = findViewById(R.id.signup_email);
         final EditText passwordEditText = findViewById(R.id.signup_password);
@@ -104,6 +111,10 @@ public class SignUpActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            DocumentReference ref = db.collection("users").document(mAuth.getCurrentUser().getUid());
+                            Map<String, String> userMap = new HashMap<>();
+                            userMap.put("username", username);
+                            ref.set(userMap);
                             Toast.makeText(SignUpActivity.this,"Register Successful!",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                         }

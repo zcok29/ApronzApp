@@ -11,6 +11,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.common.collect.Lists;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -62,7 +63,6 @@ public class CommentPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_comment_page);
         mAuth = FirebaseAuth.getInstance();
 
-
         db = FirebaseFirestore.getInstance();
         String pageName = getResources().getString(R.string.title_activity_comment_page);
 
@@ -110,15 +110,28 @@ public class CommentPageActivity extends AppCompatActivity {
     public void addCommentToDb() {
         // Gets the text and timestamp when the fab button is pressed
         String comment = editText.getText().toString();
-        String user = mAuth.getCurrentUser().getEmail();
+        String userID = mAuth.getCurrentUser().getUid();
         long epoch = System.currentTimeMillis() / 1000;
 
+        db.collection("users").document(userID).addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                commentMap.put("content", comment);
+                commentMap.put("timestamp", epoch);
+                commentMap.put("user", value.getString("username"));
+
+                // Sends the prepared comment data to the database with doc ID "J5ri7Dlp55HcZ4V0CQvo"
+                db.collection("locations").document(locationID).collection("comments").add(commentMap);
+            }
+        });
+
         // Prepares the comment data in a hash map to be sent to the database
-        commentMap.put("content", comment);
-        commentMap.put("timestamp", epoch);
-        commentMap.put("user",user);
-        // Sends the prepared comment data to the database with doc ID "J5ri7Dlp55HcZ4V0CQvo"
-        db.collection("locations").document(locationID).collection("comments").add(commentMap);
+//        commentMap.put("content", comment);
+//        commentMap.put("timestamp", epoch);
+//        commentMap.put("user", user.getText().toString());
+//
+//        // Sends the prepared comment data to the database with doc ID "J5ri7Dlp55HcZ4V0CQvo"
+//        db.collection("locations").document(locationID).collection("comments").add(commentMap);
     }
 
 
@@ -137,9 +150,9 @@ public class CommentPageActivity extends AppCompatActivity {
 
                             for (QueryDocumentSnapshot doc : task.getResult()) {
                                 // Creates a new comment object with the data pulled from the location with the corresponding document ID
-                                Comment comment = new Comment(doc.getData().get("content").toString(), doc.getData().get("timestamp").toString(),"user");
+                                Comment comment = new Comment(doc.getData().get("content").toString(), doc.getData().get("timestamp").toString(),doc.getData().get("user").toString());
                                 // Logs the comment object for testing purposes
-                                Log.d("SINGLE COMMENT OBJECT", comment.content + ", " + comment.timestamp);
+                                Log.d("SINGLE COMMENT OBJECT", comment.content + ", " + comment.timestamp+", "+comment.user);
                                 commentData.add(comment);
                             }
                         } else {

@@ -38,8 +38,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String comment = commentData.get(position).content;
         String timestamp = new java.text.SimpleDateFormat("HH:mm  MM/dd/yy").format(new java.util.Date (Integer.parseInt(commentData.get(position).timestamp)*1000L));
+        String username = commentData.get(position).user;
         holder.myText1.setText(comment);
         holder.myText2.setText(timestamp);
+        holder.myText3.setText(username);
 
     }
 
@@ -49,11 +51,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView myText1, myText2;
+        TextView myText1, myText2, myText3;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             myText1 = itemView.findViewById(R.id.commentText);
             myText2 = itemView.findViewById(R.id.timestampText);
+            myText3 = itemView.findViewById(R.id.usernameText);
+
             }
     }
 }
