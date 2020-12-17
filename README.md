@@ -50,19 +50,19 @@ To run the app on the Android Emulator:
  ![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/loginpage.jpg?raw=true "Login Pic")
 </p>
 That will take you to a page where you will be able to enter a preferred username and log in with you Macalester email and a password of choice. 
-
+<br />
 2. Next, you will stumble upon the list of locations.
 <p align="center">
  ![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/locationspage.jpg?raw=true "Locations Pic")
 </p>
 You can scroll and look at all the options. If you are interested to find out more about a location of choice, click the Explore button.
-
+<br />
 3. That will take you to the location's personalized comment page.
 <p align="center">
  ![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/commentpage.jpg?raw=true "Comments Pic")
 </p>
 You can scroll through all the comments, or you can submit your own by typing a desired message into the Add Comment box and clicking the orange Add button. If you want to take a better look at a particular comment, click View More.
-
+<br />
 4. The first page also offers the possibility of adding your own location to the list, allowing other users to get to know your favorite spots around campus. 
 <p align="center">
  ![Alt text](https://github.com/zcok29/ApronzApp/blob/screenshots/addlocationscrean.jpg?raw=true "Comments Pic")
