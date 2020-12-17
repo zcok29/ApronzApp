@@ -97,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * Build the UI using recycler view.
+     * @param locationData
+     */
     protected void buildUI(List<Location> locationData){
         int[] images = new int[locationData.size()];
         for(int i = 0; i < locationData.size(); i++){

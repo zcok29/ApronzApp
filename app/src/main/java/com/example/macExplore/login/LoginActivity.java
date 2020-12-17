@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
+        // Get the current log in state and display corresponding error message.
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
             public void onChanged(@Nullable LoginFormState loginFormState) {
@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // Check if the input value is valid whenever input text are changed.
         TextWatcher afterTextChangedListener = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -109,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // Log in the user when the button is clicked.
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    // Display the UI of main activity when user is logged in.
     private void updateUiWithUser() {
         String welcome = getString(R.string.welcome) +" "+mAuth.getCurrentUser().getEmail();
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
