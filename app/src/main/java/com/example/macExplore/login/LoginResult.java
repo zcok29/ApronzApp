@@ -1,4 +1,4 @@
-package com.example.macExplore.ui.login;
+package com.example.macExplore.login;
 
 import androidx.annotation.Nullable;
 

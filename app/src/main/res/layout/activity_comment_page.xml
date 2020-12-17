@@ -40,6 +40,15 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewComment"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        app:layout_anchor="@+id/linearLayout2"
+        app:layout_anchorGravity="center">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="72dp"
@@ -95,14 +104,6 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewComment"
-        android:layout_width="match_parent"
-        android:layout_height="550dp"
-        app:layout_anchor="@+id/linearLayout2"
-        app:layout_anchorGravity="center">
-
-    </androidx.recyclerview.widget.RecyclerView>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
