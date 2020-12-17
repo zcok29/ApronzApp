@@ -34,7 +34,7 @@
             android:layout_width="168dp"
             android:layout_height="67dp"
             android:text="Add location"
-            android:textColor="#191717"
+            android:textColor="#FFFFFF"
             android:textSize="16sp"
             app:backgroundTint="#EF4F26"
             app:layout_constraintBottom_toBottomOf="parent"
