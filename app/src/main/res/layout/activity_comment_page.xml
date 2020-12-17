@@ -69,18 +69,18 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/add_comment_text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="362dp"
+                android:layout_height="71dp"
                 android:layout_gravity="bottom"
                 android:layout_marginTop="0dp"
-                android:background="#B9BDBD"
+                android:background="#D4D8D8"
                 android:hint="Add Comment" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addCommentButton"
             android:layout_width="69dp"
-            android:layout_height="69dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:background="#EF4F26"
