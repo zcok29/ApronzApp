@@ -113,6 +113,7 @@ public class CommentPageActivity extends AppCompatActivity {
                 commentMap.put("content", comment);
                 commentMap.put("timestamp", epoch);
                 commentMap.put("user", value.getString("username"));
+                commentMap.put("totalVotes", 0);
 
                 db.collection("locations").document(locationID).collection("comments").add(commentMap);
             }
@@ -133,8 +134,8 @@ public class CommentPageActivity extends AppCompatActivity {
                             commentData = new ArrayList<>(task.getResult().size());
 
                             for (QueryDocumentSnapshot doc : task.getResult()) {
-                                Comment comment = new Comment(doc.getData().get("content").toString(), doc.getData().get("timestamp").toString(),doc.getData().get("user").toString());
-                                Log.d("SINGLE COMMENT OBJECT", comment.content + ", " + comment.timestamp+", "+comment.user);
+                                Comment comment = new Comment(doc.getData().get("content").toString(), doc.getData().get("timestamp").toString(),doc.getData().get("user").toString(), Integer.parseInt(doc.getData().get("totalVotes").toString()));
+                                Log.d("SINGLE COMMENT OBJECT", comment.content + ", " + comment.timestamp+", "+comment.user+", "+comment.totalVotes);
                                 commentData.add(comment);
                             }
                         } else {
