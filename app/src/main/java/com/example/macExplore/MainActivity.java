@@ -33,12 +33,9 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     private FirebaseAuth mAuth;
 
-    String s1[], s2[];
     Button button;
-
     List<Location> locationData;
 
-    Map<String, Object> locationMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,17 +78,14 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             locationData = new ArrayList<Location>(task.getResult().size());
-
                             for (QueryDocumentSnapshot doc : task.getResult()) {
-                                Location location = new Location(doc.getData().get("name").toString(), doc.getData().get("contact").toString(), doc.getData().get("address").toString(), doc.getId());
-                                Log.d("LOCATION OBJECT", location.documentID + " - " + location.name + ", " + location.contact + ", " + location.address);
-
+                                Location location = new Location(doc.getData().get("name").toString(), doc.getData().get("contact").toString(), doc.getData().get("address").toString(), doc.getId(), Float.parseFloat(doc.getData().get("avgRating").toString()));
+                                Log.d("LOCATION OBJECT", location.documentID + " - " + location.name + ", " + location.contact + ", " + location.address + ", " +location.avgRating);
                                 locationData.add(location);
                             }
                         } else {
                             Log.w("ERROR", "Error getting documents.", task.getException());
                         }
-
                         buildUI(locationData);
                     }
                 });
