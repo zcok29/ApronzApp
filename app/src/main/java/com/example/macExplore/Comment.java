@@ -12,11 +12,13 @@ public class Comment{
         public String content;
         public String timestamp;
         public String user;
+        public int totalVotes;
 
-        public Comment(String content, String timestamp, String user){
+        public Comment(String content, String timestamp, String user, int totalVotes){
                 this.content = content;
                 this.timestamp = timestamp;
                 this.user = user;
+                this.totalVotes = totalVotes;
         }
 
         public String getContent(){
@@ -27,4 +29,11 @@ public class Comment{
                 return timestamp;
         }
 
+        public void incrementVotes(){
+                this.totalVotes++;
+        }
+
+        public void decrementVotes(){
+                this.totalVotes--;
+        }
 }
