@@ -13,16 +13,21 @@ public class Location {
         public String name;
         public String address;
         public String documentID;
+        public float avgRating;
 
-        public Location(String name, String contact, String address, String doucmentID){
+        public Location(String name, String contact, String address, String documentID, float avgRating){
                 this.name = name;
                 this.contact = contact;
                 this.address = address;
-                this.documentID = doucmentID;
+                this.documentID = documentID;
+                this.avgRating = avgRating;
         }
 
         public String getDocumentID(){
                 return documentID;
         }
 
+        public void updateRating() {
+
+        }
 }
