@@ -39,7 +39,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String comment = commentData.get(position).content;
-        String timestamp = new java.text.SimpleDateFormat("HH:mm  MM/dd/yy").format(new java.util.Date (Integer.parseInt(commentData.get(position).timestamp)*1000L));
+        long seconds =  (System.currentTimeMillis() / 1000) - commentData.get(position).timestamp;
+        String timestamp = convertTimestamp(seconds);
+//        String timestamp = new java.text.SimpleDateFormat("HH:mm  MM/dd/yy").format(new java.util.Date (Integer.parseInt(commentData.get(position).timestamp)*1000L));
         String username = commentData.get(position).user;
         holder.myText1.setText(comment);
         holder.myText2.setText(timestamp);
@@ -55,7 +57,6 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
                 context.startActivity(intent);
             }
         });
-
     }
 
     @Override
@@ -74,8 +75,24 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
             viewMore = itemView.findViewById(R.id.viewMoreText);
             layout1 = itemView.findViewById(R.id.constraintLayout);
             layout2 = itemView.findViewById(R.id.constraintLayout2);
-
             }
     }
+
+    public String convertTimestamp(long seconds){
+        if(seconds < 60){
+            return seconds + "s";
+        } else if (seconds > 59 && seconds < 3600){
+            return (seconds / 60) + "m";
+        } else if (seconds > 3599 && seconds < 86400){
+            return (seconds / 60 / 60) + "h";
+        } else if (seconds > 86399 && seconds < 2628000){
+            return (seconds / 60 / 60/ 24) + "d";
+        } else if (seconds > 2627999 && seconds < 31536000){
+            return (seconds / 60 / 60 / 24 / 30) + "mo";
+        } else {
+            return Math.floor(seconds / 31536000) + "yr";
+        }
+    }
+
 }
 

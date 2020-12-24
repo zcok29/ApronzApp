@@ -10,11 +10,11 @@ package com.example.macExplore;
 public class Comment{
 
         public String content;
-        public String timestamp;
+        public long timestamp;
         public String user;
         public int totalVotes;
 
-        public Comment(String content, String timestamp, String user, int totalVotes){
+        public Comment(String content, long timestamp, String user, int totalVotes){
                 this.content = content;
                 this.timestamp = timestamp;
                 this.user = user;
@@ -25,7 +25,7 @@ public class Comment{
                 return content;
         }
 
-        public String getTimestamp(){
+        public long getTimestamp(){
                 return timestamp;
         }
 

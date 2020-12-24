@@ -1,6 +1,5 @@
 package com.example.macExplore;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -9,7 +8,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.common.collect.Lists;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -27,7 +25,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -35,9 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +40,7 @@ import java.util.Map;
 public class CommentPageActivity extends AppCompatActivity {
     Map<String, Object> commentMap = new HashMap<>();
     public FirebaseFirestore db;
-    public EditText editText;
+    public EditText addCommentBox;
     public String location;
     public String locationID;
     private FirebaseAuth mAuth;
@@ -71,10 +66,10 @@ public class CommentPageActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.addCommentButton);
 
-        editText = new EditText(getApplicationContext());
+        addCommentBox = new EditText(getApplicationContext());
 
-        editText = (EditText) findViewById(R.id.add_comment_text);
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        addCommentBox = (EditText) findViewById(R.id.add_comment_text);
+        addCommentBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 Toast.makeText(CommentPageActivity.this, String.valueOf(actionId), Toast.LENGTH_SHORT).show();
@@ -103,7 +98,7 @@ public class CommentPageActivity extends AppCompatActivity {
     }
 
     public void addCommentToDb() {
-        String comment = editText.getText().toString();
+        String comment = addCommentBox.getText().toString();
         String userID = mAuth.getCurrentUser().getUid();
         long epoch = System.currentTimeMillis() / 1000;
 
@@ -121,6 +116,11 @@ public class CommentPageActivity extends AppCompatActivity {
     }
 
 
+    public void editComment() {
+
+    }
+
+
     /**
      * This function gets the comment data of a specific location from the database
      */
@@ -134,8 +134,8 @@ public class CommentPageActivity extends AppCompatActivity {
                             commentData = new ArrayList<>(task.getResult().size());
 
                             for (QueryDocumentSnapshot doc : task.getResult()) {
-                                Comment comment = new Comment(doc.getData().get("content").toString(), doc.getData().get("timestamp").toString(),doc.getData().get("user").toString(), Integer.parseInt(doc.getData().get("totalVotes").toString()));
-                                Log.d("SINGLE COMMENT OBJECT", comment.content + ", " + comment.timestamp+", "+comment.user+", "+comment.totalVotes);
+                                Comment comment = new Comment(doc.getData().get("content").toString(), (long) doc.getData().get("timestamp"),doc.getData().get("user").toString(), Integer.parseInt(doc.getData().get("totalVotes").toString()));
+                                // Log.d("SINGLE COMMENT OBJECT", comment.content + ", " + comment.timestamp+", "+comment.user+", "+comment.totalVotes);
                                 commentData.add(comment);
                             }
                         } else {
