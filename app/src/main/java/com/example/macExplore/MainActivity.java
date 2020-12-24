@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -17,12 +19,16 @@ import android.widget.Button;
 import com.example.macExplore.login.LoginActivity;
 import com.example.macExplore.login.SignUpActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,21 +38,25 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     RecyclerView recyclerView;
     private FirebaseAuth mAuth;
+    private StorageReference mStorageRef;
+    private FirebaseFirestore db;
 
     Button button;
     List<Location> locationData;
+    List<Bitmap> adapterImages;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         getLocations(db);
 
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -86,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             Log.w("ERROR", "Error getting documents.", task.getException());
                         }
-                        buildUI(locationData);
+                        getImages(locationData);
                     }
                 });
     }
@@ -95,13 +105,24 @@ public class MainActivity extends AppCompatActivity {
      * Build the UI using recycler view.
      * @param locationData
      */
-    protected void buildUI(List<Location> locationData){
-        int[] images = new int[locationData.size()];
-        for(int i = 0; i < locationData.size(); i++){
-            images[i] = R.drawable.adapter_img;
-        }
+    protected void getImages(List<Location> locationData){
+        StorageReference locationImgRef = mStorageRef.child("images/adapter_img.png");
+        adapterImages = new ArrayList<Bitmap>(locationData.size());
+        locationImgRef.getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                for(int i = 0; i < locationData.size(); i++){
+                    adapterImages.add(bitmap);
+                }
+                buildUI(locationData, adapterImages);
+            }
+        });
+    }
+
+    protected void buildUI(List<Location> locationData, List<Bitmap> adapterImages){
         recyclerView = findViewById(R.id.mainRecyclerView);
-        LocationAdapter locationAdapter = new LocationAdapter(this, locationData, images, button);
+        LocationAdapter locationAdapter = new LocationAdapter(this, locationData, adapterImages, button);
         recyclerView.setAdapter(locationAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

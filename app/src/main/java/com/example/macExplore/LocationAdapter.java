@@ -5,6 +5,7 @@ package com.example.macExplore;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +19,14 @@ import java.util.List;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyViewHolder> {
 
-    int images[];
+    List<Bitmap> adapterImages;
     Context context;
     Button button;
     List<Location> locationData;
 
-    public LocationAdapter(Context ct, List<Location> locationData, int img[], Button btn){
+    public LocationAdapter(Context ct, List<Location> locationData, List<Bitmap> images, Button btn){
         context = ct;
-        images = img;
+        adapterImages = images;
         button = btn;
         this.locationData = locationData;
     }
@@ -45,7 +46,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
         String contact = locationData.get(position).contact;
         holder.myText1.setText(location);
         holder.myText2.setText(contact);
-        holder.myImage.setImageResource(images[position]);
+        holder.myImage.setImageBitmap(adapterImages.get(position));
         holder.myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +60,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return images.length;
+        return adapterImages.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
